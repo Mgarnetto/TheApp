@@ -1,0 +1,66 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/** Comment Box */
+
+.nested-comment {
+    margin-left: 20px; /* Adjust the margin-left value as needed for your desired indentation */
+}
+
+.comment-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .user-info img {
+        width: 40px; /* Adjust the thumbnail size */
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+.user-name {
+    font-weight: bold;
+}
+
+.comment-text {
+    margin-bottom: 5px;
+}
+
+.timestamp {
+    align-self: flex-end;
+    font-size: 12px;
+    color: #999;
+}
+
+
+.media-body {
+    display: flex;
+    flex-direction: column;
+}

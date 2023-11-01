@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "tHEaPP";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to tHEaPP</h1>
+</div>
+
+@await Component.InvokeAsync("Post")
+
+@*<partial name="/Views/Partial/_testPartial.cshtml" />*@
+
+@*@await Component.InvokeAsync("Comment")*@
+
+
+@*<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Parent Comment -->
+            <div class="media comment-box">
+                <img src="/Pics/UP.png" class="align-self-start mr-3" alt="User Thumbnail" width="48">
+                <div class="media-body">
+                    <h5 class="mt-0">User Name</h5>
+                    <small class="text-muted">Date and Time</small>
+                    <p>This is the parent comment text.</p>
+
+                    <!-- Nested Comment -->
+                    <div class="media mt-3 nested-comment">
+                        <!-- Apply the custom class for indentation -->
+                        <img src="/Pics/UP.png" class="align-self-start mr-3" alt="Nested User Thumbnail" width="48">
+                        <div class="media-body">
+                            <h5 class="mt-0">Nested User Name</h5>
+                            <small class="text-muted">Nested Date and Time</small>
+                            <p>This is the nested comment text.</p>
+                        </div>
+                    </div>
+                    <!-- End Nested Comment -->
+
+                </div>
+            </div>
+            <!-- End Parent Comment -->
+        </div>
+    </div>
+</div>*@
+
+@*<div class="container mt-3">
+    <!-- Post -->
+    <div class="media post-box">
+        <img src="/Pics/PostAuthor.png" class="align-self-start mr-3" alt="Author Thumbnail" width="48">
+        <div class="media-body">
+            <h5 class="mt-0">Post Author</h5>
+            <small class="text-muted">Post Date and Time</small>
+            <p>This is the post content.</p>
+        </div>
+    </div>
+    <!-- End Post -->
+    
+</div>*@

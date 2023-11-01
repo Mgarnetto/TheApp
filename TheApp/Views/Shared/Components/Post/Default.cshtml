@@ -1,0 +1,28 @@
+﻿@using TheApp.Objects;
+@using TheApp.Util;
+@using TheApp.IO.DataCom;
+@model Post[];
+
+@{
+    foreach (Post p in Model)
+    {   
+        User[] user = new GetUsers().GetUser(p.userID);
+
+        <div class="container mt-3">
+            <!-- Post -->
+            <div class="media post-box">
+                <img src="/Pics/UP.png" class="align-self-start mr-3" alt="Author Thumbnail" width="48">
+                <div class="media-body">
+                    <h5 class="mt-0">@user[0].firstName @user[0].lastName:</h5>
+                    <small class="text-muted">@DateTimeConverter.ToDateTimeString(p.timeStamp)</small>
+                    <p>@p.postText</p>
+                </div>
+            </div>
+            <!-- End Post -->
+            @await Component.InvokeAsync("Comment", new int[]{ p.mediaElementID })
+        </div>
+
+        <br />
+    }
+    
+}

@@ -1,0 +1,13 @@
+﻿@using TheApp.Util;
+
+@{
+    
+    DateTime dt = DateTime.Now;
+
+    <h1>Testing Partial</h1>
+
+    for(int a = 0; a < 10; a++)
+    {
+        <p>row: @(a + 1) @DateTimeConverter.ToDateTimeString(dt)</p>
+    }
+}

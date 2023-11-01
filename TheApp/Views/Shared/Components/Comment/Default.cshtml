@@ -1,0 +1,55 @@
+﻿@using TheApp.Objects;
+@using TheApp.Util;
+@using TheApp.IO.DataCom;
+@model Comment[];             
+
+@{
+    foreach (Comment p in Model)
+    {
+        User[] user = new GetUsers().GetUser(p.userID);
+
+
+            @if (p.parentCommentID == 0)
+            {
+
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Parent Comment -->
+                            <div class="media comment-box">
+                                <img src="/Pics/UP.png" class="align-self-start mr-3" alt="User Thumbnail" width="48">
+                                <div class="media-body">
+                                <h5 class="mt-0">@user[0].firstName @user[0].lastName:</h5>
+                                <small class="text-muted">@DateTimeConverter.ToDateTimeString(p.timeStamp)</small>
+                                <p>@p.commentText</p>
+                                
+                    @await Component.InvokeAsync("Comment", new int[]{ p.mediaElementID, p.commentID })
+
+                            </div>
+                            </div>
+                            <!-- End Parent Comment -->
+                        </div>
+                    </div>
+                </div>
+                
+            }
+            else
+            {
+                <!-- Nested Comment -->
+                <div class="media mt-3 nested-comment">
+                    <!-- Apply the custom class for indentation -->
+                    <img src="/Pics/UP.png" class="align-self-start mr-3" alt="Nested User Thumbnail" width="48">
+                    <div class="media-body">
+                        <h5 class="mt-0">@user[0].firstName @user[0].lastName:</h5>
+                        <small class="text-muted">@DateTimeConverter.ToDateTimeString(p.timeStamp)</small>
+                        <p>@p.commentText</p>
+                    </div>
+                </div>
+                <!-- End Nested Comment -->
+
+            }
+        
+
+        
+    }
+}
