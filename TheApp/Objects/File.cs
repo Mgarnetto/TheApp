@@ -8,7 +8,7 @@
         public string fileTitle { get; set; } //varchar 100 more formal for display
         public string fileServer { get; set; } //varchar 20 server where file is hosted
         public string filePath { get; set; } //varchar 50 location on the server
-        public string fileType { get; set; } //varchar 20 audio/video/image also profile / profile-default
+        public string fileType { get; set; } //varchar 20 audio/video/image also profile / image-profile-default
         public DateTime modifiedDateTime { get; set; } // when it was created/modified
 
         public File()

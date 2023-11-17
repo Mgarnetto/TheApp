@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TheApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/map/jquery-jvectormap-2.0.5.css" asp-append-version="false" />
+
+    <!--required here for map -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -41,9 +45,11 @@
             &copy; 2023 - TheApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
+    <script src="~/map/mercUSA.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

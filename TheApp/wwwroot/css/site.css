@@ -64,3 +64,14 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.map-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Optional: Set height for vertical centering */
+}
+
+.center-content {
+    /* Additional styling for the centered content */
+}
