@@ -2,7 +2,7 @@
 {
     public class SaleItem
     {
-        public int saleID { get; set; }
+        public int saleID { get; set; } 
         public int userID { get; set; } // userID of who posted it
         public string category { get; set; } // sale or auction
         public string SaleType { get; set; }

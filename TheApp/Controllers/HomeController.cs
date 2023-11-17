@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using System.Diagnostics;
 using TheApp.IO.DataCom;
 using TheApp.Models;
@@ -8,14 +9,72 @@ namespace TheApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _environment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IWebHostEnvironment environment)
         {
-            _logger = logger;
+            _environment = environment;
         }
 
+        [HttpGet]
         public IActionResult Index()
+        {
+            var contentRootPath = _environment.ContentRootPath;
+            var relativePath = Path.Combine("wwwroot", "uploads");
+            var fullSavePath = Path.Combine(contentRootPath, relativePath);
+
+            ViewData["path"] = Path.Combine(contentRootPath, relativePath).ToString();
+            return View();
+        }
+
+        public IActionResult Testing()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            try
+            {
+                if (file != null && file.Length > 0)
+                {
+                    var uploadsDirectory = Path.Combine(_environment.WebRootPath, "uploads");
+
+                    if (!Directory.Exists(uploadsDirectory))
+                    {
+                        Directory.CreateDirectory(uploadsDirectory);
+                    }
+
+                    var contentRootPath = _environment.ContentRootPath;
+                    var relativePath = "uploads"; // Relative to the web root
+                    var fullSavePath = Path.Combine(contentRootPath, "wwwroot", relativePath);
+                    var filePath = Path.Combine(fullSavePath, file.FileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+
+
+                    // You can process the uploaded file here or save the file path to a database
+
+                    return RedirectToAction("Index"); // Redirect to the home page after a successful upload
+                }
+
+                return View("Index"); // Return to the upload form if no file is uploaded
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["path"] = ex.ToString();
+                return View("Index"); // Return to the upload form if no file is uploaded
+            }
+            
+        }
+
+        public IActionResult spIndex()
         {
 
             //GetComments g = new GetComments();
@@ -24,7 +83,6 @@ namespace TheApp.Controllers
 
             return View();
         }
-               
 
         //Unused
         //public IActionResult OnGetPartial() =>
