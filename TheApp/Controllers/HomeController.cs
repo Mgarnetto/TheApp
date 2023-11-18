@@ -27,11 +27,9 @@ namespace TheApp.Controllers
             return View();
         }
 
-        public IActionResult Testing()
-        {
-            return View();
-        }
 
+        // Only Here For: issue with FileController upload method not being called from file partial
+        // , which is called from a view on the HomeController??? 
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
@@ -71,26 +69,19 @@ namespace TheApp.Controllers
                 ViewData["path"] = ex.ToString();
                 return View("Index"); // Return to the upload form if no file is uploaded
             }
-            
+
         }
 
-        public IActionResult spIndex()
+        public IActionResult Testing()
         {
-
-            //GetComments g = new GetComments();
-            //g.GetAll();
-            //Comment[] h = g.GetCommentByMediaID(1);
-
             return View();
         }
 
-        //Unused
-        //public IActionResult OnGetPartial() =>
-        //    new PartialViewResult
-        //    {
-        //        ViewName = "_CommentPartial"
-        //    };
 
+        public IActionResult spIndex()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

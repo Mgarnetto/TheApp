@@ -6,17 +6,18 @@
     <h1 class="display-4">Welcome to tHEaPP</h1>
 </div>
 
-<div class="map-flex">
-    <div class="center-content">
-        <div id="map" style="width: 800px; height: 400px"></div>
-    </div>
+<div class="map-container">
+   
+        <div id="map" class="jvmap-smart"></div>
+   
 </div>
+
 
 
 
 
   <script>
     $(function(){
-        $('#map').vectorMap({ map: 'us_merc', backgroundColor: '#D1E8E6' });
+        $('#map').vectorMap({ map: 'us_lcc' });
     });
   </script>
