@@ -6,7 +6,7 @@
     <h1 class="display-4">Welcome to tHEaPP</h1>
 </div>
 
-<button id="update-colors-button">Click Here</button>
+<button id="update">Click Here</button>
 
 <div class="map-container">
    
@@ -35,10 +35,15 @@
                 regions: [{
                     attribute: 'fill'
                 }]
+            },
+            onRegionClick: function (event, code){
+                alert('Clicked on: ' + code);
+                
             }
+
         });
         map.series.regions[0].setValues(generateColors());
-        $('#update-colors-button').click(function (e) {
+        $('#update').click(function (e) {
             e.preventDefault();
             map.series.regions[0].setValues(generateColors());
         });
