@@ -46,8 +46,14 @@ namespace TheApp.IO.DataCom
                     int userID = int.Parse(row["userID"].ToString());
                     string firstName = row["firstName"].ToString();
                     string lastName = row["lastName"].ToString();
+                    string email = row["email"].ToString();
+                    string location = row["location"].ToString();
+                    string stageName = row["stageName"].ToString();
+                    string genreLabel = row["genreLabel"].ToString();
+                    string genrePref = row["genrePref"].ToString();
 
-                    userArray[it] = new User(userID, firstName, lastName);
+                    userArray[it] = new User(userID, firstName, lastName, email, location, stageName,
+                        genreLabel, genrePref);
                     it++;
                 }
                 return userArray;

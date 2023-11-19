@@ -6,7 +6,7 @@
 @{
     foreach (Comment p in Model)
     {
-        User[] user = new GetUsers().GetUser(p.userID);
+        User[] user = new GetUsers().GetUser(p.userID); // for displaying user info
 
 
             @if (p.parentCommentID == 0)

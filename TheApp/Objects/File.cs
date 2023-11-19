@@ -4,6 +4,7 @@
     {
         public int fileID { get; set; }
         public int userID { get; set; } // user who uploaded file
+        public int mediaElementID { get; set; } // where file is needed
         public string fileName { get; set; } //varchar 100 
         public string fileTitle { get; set; } //varchar 100 more formal for display
         public string fileServer { get; set; } //varchar 20 server where file is hosted
@@ -16,7 +17,8 @@
             // Default constructor
         }
 
-        public File(int fileID, int userID, string fileName, string fileTitle, string fileServer, string filePath, string fileType, DateTime modifiedDateTime)
+        public File(int fileID, int userID, string fileName, string fileTitle, string fileServer, string filePath,
+            string fileType, DateTime modifiedDateTime)
         {
             this.fileID = fileID;
             this.userID = userID;
