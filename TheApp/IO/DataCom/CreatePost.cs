@@ -1,24 +1,41 @@
-﻿namespace TheApp.IO.DataCom
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using TheApp.Objects;
+
+namespace TheApp.IO.DataCom
 {
     public class CreatePost
     {
-        /** 
-         * -- First, find the next available mediaElementID
-            DECLARE @NextMediaElementID INT;
-            SELECT @NextMediaElementID = ISNULL(MAX(mediaElementID), 0) + 1 FROM Post;
+        public CreatePost()
+        {
+            // Default constructor
+        }
 
-            -- Insert a new post with the next available mediaElementID
-            INSERT INTO Post (userID, postType, postText, mediaFilePath, mediaElementID, timeStamp, Category, PostingID)
-            VALUES
-            (1, 'Text', 'This is a new text post.', 'new_text.txt', @NextMediaElementID, GETDATE(), 'User', 4),
-            (2, 'Image', 'Image post description', 'image1.jpg', @NextMediaElementID + 1, GETDATE(), 'User', 5),
-            (3, 'Video', 'Video post description', 'video1.mp4', @NextMediaElementID + 2, GETDATE(), 'User', 6);
-         * 
-         * **/
+        public int InsertPost(Post post)
+        {
+            string queryString = @"INSERT INTO posts (userID, postType, postText, mediaFilePath, Category, PostingID, timeStamp)
+                                   VALUES (@userID, @postType, @postText, @mediaFilePath, @Category, @PostingID, @timeStamp);
+                                   SELECT SCOPE_IDENTITY();";
 
-        string createNewSQL = "INSERT INTO Post (userID, postType, postText, mediaFilePath, mediaElementID," 
-            + "timeStamp, Category, PostingID) VALUES (1, 'Text', 'This is a new text post.', 'new_text.txt',"
-            + "(SELECT IFNULL(MAX(mediaElementID), 0) + 1 FROM Post), '2023-10-26 12:00:00', 'User', 4);";
+            using (SqlConnection connection = new SqlConnection("your_connection_string_here"))
+            {
+                connection.Open();
 
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    command.Parameters.AddWithValue("@userID", post.userID);
+                    command.Parameters.AddWithValue("@postType", post.postType);
+                    command.Parameters.AddWithValue("@postText", post.postText);
+                    command.Parameters.AddWithValue("@mediaFilePath", post.mediaFilePath);
+                    command.Parameters.AddWithValue("@Category", post.Category);
+                    command.Parameters.AddWithValue("@PostingID", post.PostingID);
+                    command.Parameters.AddWithValue("@timeStamp", post.timeStamp);
+
+                    // Execute the query and return the auto-incremented ID
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+        }
     }
 }

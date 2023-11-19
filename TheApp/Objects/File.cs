@@ -16,8 +16,9 @@
             // Default constructor
         }
 
-        public File(int userID, string fileName, string fileTitle, string fileServer, string filePath, string fileType, DateTime modifiedDateTime)
+        public File(int fileID, int userID, string fileName, string fileTitle, string fileServer, string filePath, string fileType, DateTime modifiedDateTime)
         {
+            this.fileID = fileID;
             this.userID = userID;
             this.fileName = fileName;
             this.fileTitle = fileTitle;
