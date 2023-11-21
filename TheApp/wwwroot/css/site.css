@@ -121,3 +121,40 @@ body {
     }
 }
 
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab-buttons {
+    display: flex;
+    width: 100%;
+}
+
+.tab-button {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    border-right: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+    .tab-button.active {
+        background-color: #ddd; /* Add a different background color for the active tab */
+    }
+
+.tab-content {
+    display: none;
+    padding: 5px;
+    padding-top: 20px !important;
+}
+
+    .tab-content.active {
+        display: block;
+    }
