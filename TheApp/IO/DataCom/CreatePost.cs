@@ -18,7 +18,7 @@ namespace TheApp.IO.DataCom
                                    VALUES (@userID, @postType, @postText, @mediaFilePath, @Category, @PostingID, @timeStamp);
                                    SELECT SCOPE_IDENTITY();";
 
-            using (SqlConnection connection = new SqlConnection("your_connection_string_here"))
+            using (SqlConnection connection = new SqlConnection(DBConn1.SSConnectionString))
             {
                 connection.Open();
 

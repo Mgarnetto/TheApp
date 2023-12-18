@@ -121,7 +121,26 @@
                 }]
             },
             onRegionClick: function (event, code){
-                alert('Clicked on: ' + code);
+                $.ajax({
+                url: '/Home/State',
+                    type: 'POST',
+                    data: { stateCode: code },
+                    success: function(response) {
+                        if (response.success)
+                        {
+                            alert(response.message);
+                        }
+                        else
+                        {
+                            alert('Error processing state selection.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        alert('Error making AJAX call.');
+                    }
+                });
+                
                 
             }
 

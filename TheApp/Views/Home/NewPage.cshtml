@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/NewStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/map/jquery-jvectormap-2.0.5.css" asp-append-version="false" />
+
+    <!--required here for map -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <title>Social Media Page</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Your Social Media</a>
+            <!-- Add your top navigation items here -->
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <!-- Sidebar content goes here -->
+                <div class="toggle-btn" id="sidebarCollapse">&#9664;</div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Main content goes here -->
+                @{
+                    for(int a = 0; a < 1000; a++)
+                    {
+                        <p>line: @a</p>
+                    }
+                }
+            </main>
+        </div>
+    </div>
+
+    <!-- Custom media player container -->
+    <div id="customMediaPlayer" class="minimized">
+        <!-- Your custom media player content goes here -->
+        <div class="toggle-btn" id="toggleMediaPlayer">&#9654;</div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Toggle sidebar
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+            // Toggle custom media player
+            $('#toggleMediaPlayer').on('click', function () {
+                $('#customMediaPlayer').toggleClass('minimized');
+            });
+        });
+    </script>
+
+</body>
+</html>

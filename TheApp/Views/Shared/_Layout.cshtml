@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - TheApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/TheApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Main.css" />
     <link rel="stylesheet" href="~/map/jquery-jvectormap-2.0.5.css" asp-append-version="false" />
 
     <!--required here for map -->
@@ -27,6 +27,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SideBar">Side Bar</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testing">Testing</a>
                         </li>
                     </ul>
@@ -34,9 +37,25 @@
             </div>
         </nav>
     </header>
+    <button style="position: fixed; margin-left: 5px; margin-top: -10px;" class="openbtn" onclick="openNav()">☰</button>
     <div class="container">
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+            <a href="#">Moozic Stuff</a>
+            <a href="#">Playlists</a>
+            <a href="#">Favorites</a>
+            <a href="#">Messages</a>
+        </div>
         <main role="main" class="pb-3">
+            
+            
             @RenderBody()
+
+            <!-- Custom media player container -->
+            <div id="customMediaPlayer" class="minimized">
+                <!-- Your custom media player content goes here -->
+                <div class="toggle-btn" id="toggleMediaPlayer">&#9654;</div>
+            </div>
         </main>
     </div>
 
@@ -50,6 +69,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="~/map/us_lcc.js"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

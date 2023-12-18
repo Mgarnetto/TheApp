@@ -17,7 +17,7 @@ namespace TheApp.IO.DataCom
                                    VALUES (@userID, @mediaElementID, @parentCommentID, @commentText, @timeStamp);
                                    SELECT SCOPE_IDENTITY();";
 
-            using (SqlConnection connection = new SqlConnection("your_connection_string_here"))
+            using (SqlConnection connection = new SqlConnection(DBConn1.SSConnectionString))
             {
                 connection.Open();
 

@@ -27,6 +27,31 @@ namespace TheApp.Controllers
             return View();
         }
 
+        public IActionResult NewPage()
+        {
+            return View();
+        }
+
+        public IActionResult SideBar() 
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult State(string stateCode)
+        {
+            try
+            {
+                ViewData["stateCode"] = stateCode;
+                return View("State");
+            }catch (Exception ex)
+            {
+                string message = ex.Message;
+                return View(message);
+            }
+            
+        }
 
         // Only Here For: issue with FileController upload method not being called from file partial
         // , which is called from a view on the HomeController??? 
