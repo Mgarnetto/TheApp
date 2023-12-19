@@ -114,6 +114,17 @@
         {
             for (int a = 0; a < states.Length; a++)
             {
+                if (name.Equals(abbr[a]))
+                    return states[a];
+            }
+
+            return "null";
+        }
+
+        public static String getAbbr(String name)
+        {
+            for (int a = 0; a < states.Length; a++)
+            {
                 if (name.Equals(states[a]))
                     return abbr[a];
             }

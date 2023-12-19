@@ -9,6 +9,7 @@ namespace TheApp.Controllers
 {
     public class HomeController : Controller
     {
+        int indexLoad = 1;
         private readonly IWebHostEnvironment _environment;
 
         public HomeController(IWebHostEnvironment environment)
@@ -17,13 +18,40 @@ namespace TheApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? load)
         {
             var contentRootPath = _environment.ContentRootPath;
             var relativePath = Path.Combine("wwwroot", "uploads");
             var fullSavePath = Path.Combine(contentRootPath, relativePath);
+            
+            if(load == 0)
+            {
+                ViewData["FirstLoad"] = 0;
+            }
+            else
+            {
+                ViewData["FirstLoad"] = 1;
+            }
+             
+
 
             ViewData["path"] = Path.Combine(contentRootPath, relativePath).ToString();
+            return View();
+        }
+
+        public IActionResult LoadPage(string target)
+        {
+            if (target.Equals("Home"))
+            {
+                indexLoad = 0;
+                return RedirectToAction("Index", new { load = 0}); 
+            }
+
+            return RedirectToAction("Main");
+        }
+
+        public IActionResult Main()
+        {
             return View();
         }
 
@@ -48,12 +76,18 @@ namespace TheApp.Controllers
         {
             try
             {
-                ViewData["stateCode"] = stateCode;
-                return View("State");
+                //state code is usually like XX-St, US-GA so extracting last 2 places in char[] > string.
+                char[] st = stateCode.ToArray();
+                string str = st[st.Length - 2].ToString() + st[st.Length - 1].ToString();
+
+                string state = TheApp.DataList.State.getState(str);
+
+                ViewData["state"] = state;
+                return PartialView("State");
             }catch (Exception ex)
             {
                 string message = ex.Message;
-                return View(message);
+                return PartialView(message);
             }
             
         }
