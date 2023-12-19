@@ -84,9 +84,7 @@
 
 .toggle-btn {
     cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    background-color: #f0f0f0;
+    padding: 0px;
     border: 1px solid #ccc;
     text-align: center;
     position: fixed;

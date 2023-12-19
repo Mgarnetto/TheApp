@@ -27,7 +27,12 @@ namespace TheApp.Controllers
             return View();
         }
 
-        public IActionResult NewPage()
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        public IActionResult EditUser()
         {
             return View();
         }
@@ -103,15 +108,8 @@ namespace TheApp.Controllers
         }
 
 
-        public IActionResult spIndex()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
