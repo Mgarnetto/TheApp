@@ -7,7 +7,7 @@
         public string postType { get; set; }
         public string postText { get; set; }
         public string mediaFilePath { get; set; }
-        public int mediaElementID { get; set; }
+        public int mediaElementID { get; set; } // to be set by db. so hit db then pages
         public DateTime timeStamp { get; set; }
         public string Category { get; set; } // user, classifieds, etc.
         public int PostingID { get; set; } //where it was posted.

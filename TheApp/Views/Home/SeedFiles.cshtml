@@ -1,0 +1,13 @@
+﻿
+@{
+    Layout = "";
+
+    <form asp-action="TestUpload" asp-controller="Home" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">File:</label>
+            <input type="file" name="file" id="file" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+}

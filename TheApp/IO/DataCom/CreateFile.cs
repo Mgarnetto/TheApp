@@ -13,8 +13,8 @@ namespace TheApp.IO.DataCom
 
         public int InsertFile(TheApp.Objects.File file)
         {
-            string queryString = @"INSERT INTO [File] (userID, fileName, fileTitle, fileServer, filePath, fileType, modifiedDateTime)
-                                   VALUES (@userID, @fileName, @fileTitle, @fileServer, @filePath, @fileType, @modifiedDateTime);
+            string queryString = @"INSERT INTO [File] (userID, mediaElementID, fileName, fileTitle, fileServer, filePath, fileType, modifiedDateTime)
+                                   VALUES (@userID, @mediaElementID, @fileName, @fileTitle, @fileServer, @filePath, @fileType, @modifiedDateTime);
                                    SELECT SCOPE_IDENTITY();";
 
             using (SqlConnection connection = new SqlConnection(DBConn1.SSConnectionString))
@@ -24,6 +24,7 @@ namespace TheApp.IO.DataCom
                 using (SqlCommand command = new SqlCommand(queryString, connection))
                 {
                     command.Parameters.AddWithValue("@userID", file.userID);
+                    command.Parameters.AddWithValue("@mediaElementID", file.mediaElementID);
                     command.Parameters.AddWithValue("@fileName", file.fileName);
                     command.Parameters.AddWithValue("@fileTitle", file.fileTitle);
                     command.Parameters.AddWithValue("@fileServer", file.fileServer);

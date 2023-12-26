@@ -19,7 +19,7 @@
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         font-size: 25px;
-        color: #818181;
+        color: #f0f0f0;
         display: block;
         transition: 0.3s;
     }
@@ -91,4 +91,25 @@
     bottom: 0px;
     left: 0px;    
     z-index: 5;
+}
+
+#sidebarid {
+    position: fixed;
+    margin-left: 5px;
+    margin-top: -10px;
+    height: 40px;
+}
+
+/* profile pictures */
+.profile-picture-container {
+    padding-top: 30px;
+    max-width: 100%;
+    height: auto;
+}
+
+.profile-picture {
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+    /* Add additional styling as needed */
 }

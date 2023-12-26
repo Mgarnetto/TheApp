@@ -26,35 +26,38 @@
                         <li class="nav-item">
                             <a class="site-link nav-link text-dark" data-target="Home">Home</a>
                         </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testing">Testing</a>
-                        </li>*@
+                        <li class="nav-item">
+                            <a class="site-link nav-link text-dark" data-target="SeedFiles">SF</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="site-link nav-link text-dark" data-target="Testing" >Test</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     @*<button style="position: fixed; margin-left: 5px; margin-top: -10px;" class="openbtn" onclick="openNav()">☰</button>*@
-    <img style="position: fixed; margin-left: 5px; margin-top: -10px; height: 50px;" class="openbtn" onclick="openNav()" src="/Pics/right.png" />
+    <img id="sidebarid" class="openbtn" onclick="openNav()" src="/Pics/right.png" />
     <div class="container">
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
             <a href="#">Moozic Box</a>
             <br />
-            <a href="#">Playlists</a>
-            <a href="#">Favorites</a>
-            <a href="#">Messages</a>
+            <a href="#">Item X</a>
+            <a href="#">Item Y</a>
+            <a href="#">Item Z</a>
         </div>
         <main role="main" class="pb-3">
             <span>
                 
-                No page refreshes:<div id="counter">00:00:00</div>
+                t:<div id="counter">00:00:00</div>
             </span>
             @RenderBody()
 
             <!-- Custom media player container -->
             <div id="customMediaPlayer" class="minimized">
-                <!-- Your custom media player content goes here -->
+                <!-- content goes here -->
                 <div class="toggle-btn" id="toggleMediaPlayer">
                     <img style="height: 50px;" src="/Pics/hpicon.jpg" />
                 </div>

@@ -1,55 +1,57 @@
-﻿@{
-    ViewData["Title"] = "tHEaPP";
-    Layout = "";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to errors</h1>
-</div>
-
-@*<div class="tab-container">
+﻿<div class="tab-container">
     <div class="tab-buttons">
         <div class="tab-button active" onclick="openTab('tab1')">Choose By Map</div>
         <div class="tab-button" onclick="openTab('tab2')">Choose By Genre</div>
     </div>
     <div class="tab-content active" id="tab1">
 
-        <div class="nested-tab-container">
-            <div class="tab-buttons">
-                <div class="tab-button active" onclick="openNestedTab('nestedTab1')">US Map</div>
-                <div class="tab-button" onclick="openNestedTab('nestedTab2')">UK Map</div>
-                <div class="tab-button" onclick="openNestedTab('nestedTab3')">EU Map</div>
-                <div class="tab-button" onclick="openNestedTab('nestedTab4')">SA Map</div>
-                <div class="tab-button" onclick="openNestedTab('nestedTab5')">Canada</div>
-            </div>
-            <div class="tab-content active" id="nestedTab1">
-                <h2>US Map</h2>
 
-                <button id="update">Click Here</button>
+        <h2>US Map</h2>
 
-                <div class="map-container">
+        @*<button id="update">Click Here</button>*@
 
-                    <div id="map" class="jvmap-smart"></div>
+        <div class="map-container">
 
-                </div>
-            </div>
-            <div class="tab-content" id="nestedTab2">
-                <h3>UK Map</h3>
-                <p>Map</p>
-            </div>
-            <div class="tab-content" id="nestedTab3">
-                <h3>EU Map</h3>
-                <p>Map</p>
-            </div>
-            <div class="tab-content" id="nestedTab4">
-                <h3>South America Map</h3>
-                <p>South and Central America Maps</p>
-            </div>
-            <div class="tab-content" id="nestedTab5">
-                <h3>Canada Map</h3>
-                <p>Our brothers vibing up top</p>
-            </div>
+            <div id="map" class="jvmap-smart"></div>
+
         </div>
+
+        @*<div class="nested-tab-container">
+        <div class="tab-buttons">
+        <div class="tab-button active" onclick="openNestedTab('nestedTab1')">US Map</div>
+        <div class="tab-button" onclick="openNestedTab('nestedTab2')">UK Map</div>
+        <div class="tab-button" onclick="openNestedTab('nestedTab3')">EU Map</div>
+        <div class="tab-button" onclick="openNestedTab('nestedTab4')">SA Map</div>
+        <div class="tab-button" onclick="openNestedTab('nestedTab5')">Canada</div>
+        </div>
+        <div class="tab-content active" id="nestedTab1">
+        <h2>US Map</h2>
+
+        @*<button id="update">Click Here</button>*@
+
+        @*<div class="map-container">
+
+        <div id="map" class="jvmap-smart"></div>
+
+        </div>
+        </div>
+        <div class="tab-content" id="nestedTab2">
+        <h3>UK Map</h3>
+        <p>Map</p>
+        </div>
+        <div class="tab-content" id="nestedTab3">
+        <h3>EU Map</h3>
+        <p>Map</p>
+        </div>
+        <div class="tab-content" id="nestedTab4">
+        <h3>South America Map</h3>
+        <p>South and Central America Maps</p>
+        </div>
+        <div class="tab-content" id="nestedTab5">
+        <h3>Canada Map</h3>
+        <p>Our brothers vibing up top</p>
+        </div>
+        </div>*@
     </div>
     <div class="tab-content" id="tab2">
         <h2>Genre List</h2>
@@ -127,6 +129,8 @@
                     type: 'POST',
                     data: { stateCode: code },
                     success: function (response) {
+                        var map = $('#map').vectorMap('get', 'mapObject');
+                        map.tip.hide();
                         $('#SiteContent').html(response);
 
                     },
@@ -146,5 +150,4 @@
             map.series.regions[0].setValues(generateColors());
         });
     });
-</script>*@
-
+</script>

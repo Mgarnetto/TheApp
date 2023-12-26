@@ -1,8 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Testing Items";
+    Layout = "";
 }
 
-<form asp-action="Upload" asp-controller="Home" method="post" enctype="multipart/form-data">
+<div class="text-center">
+    <h2>Next Page</h2>
+</div>
+
+@*<form asp-action="Upload" asp-controller="Home" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="file">Choose a file:</label>
         <input type="file" name="file" id="file" class="form-control" required>
@@ -15,7 +20,7 @@
 
 <partial name="/Views/File/_filePartial.cshtml" />
 
-@Html.Partial("/Views/Partial/_testPartial.cshtml")
+@Html.Partial("/Views/Partial/_testPartial.cshtml")*@
     
  
 
