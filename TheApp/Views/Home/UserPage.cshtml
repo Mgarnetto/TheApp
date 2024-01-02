@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = "";
+    TheApp.Objects.User[] u = new TheApp.IO.DataCom.GetUsers().GetUser(7);
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="profile-container">
+            <!-- Profile picture go here -->
+            <div class="profile-picture">
+                <img src="~/uploads/profile.jfif" alt="Profile Picture 1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <br /><br />
+        <h3>@u[0].stageName</h3>
+        <p>Genre: @u[0].genreLabel</p>
+        <p>Location: @u[0].location</p>
+        <p>Bio Line: The stuff dreams are made of</p>
+    </div>
+</div>
+
+@await Component.InvokeAsync("Post", new {type = "User", ID = u[0].userID})
+        

@@ -56,6 +56,9 @@ namespace TheApp.Controllers
             else if (target.Equals("SeedFiles"))
             {
                 return RedirectToAction("SeedFiles");
+            }else if (target.Equals("UserPage"))
+            {
+                return RedirectToAction("UserPage");
             }
 
             return RedirectToAction("Main");
@@ -67,6 +70,11 @@ namespace TheApp.Controllers
         }
 
         public IActionResult Main()
+        {
+            return View();
+        }
+
+        public IActionResult UserPage()
         {
             return View();
         }

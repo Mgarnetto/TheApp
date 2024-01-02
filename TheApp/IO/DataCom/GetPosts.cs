@@ -46,8 +46,9 @@ namespace TheApp.IO.DataCom
                     int userID = int.Parse(row["userID"].ToString());
                     string postType = row["postType"].ToString();
                     string postText = row["postText"].ToString();
-                    string mediaFilePath = row["mediaFilePath"].ToString();
-                    int mediaElementID = int.Parse(row["mediaElementID"].ToString());
+                    string mediaFilePath = row["mediaFilePath"].ToString() == null ? "null" : row["mediaFilePath"].ToString();
+                    int mediaElementID = string.IsNullOrEmpty(row["mediaElementID"].ToString()) ? 0 : int.Parse(row["mediaElementID"].ToString());
+
                     DateTime timeStamp = (DateTime)row["timeStamp"];
                     string category = row["Category"].ToString();
                     int postingID = int.Parse(row["PostingID"].ToString());

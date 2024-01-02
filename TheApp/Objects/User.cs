@@ -3,13 +3,13 @@
     public class User
     {
         public int userID { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public string location { get; set; } // such as state/country/etc
-        public string stageName { get; set; } 
-        public string genreLabel { get; set; } // what is the genre of music user makes
-        public string genrePref { get; set; } // what is the genre of music user listens to/prefers
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
+        public string? email { get; set; }
+        public string? location { get; set; } // such as state/country/etc
+        public string? stageName { get; set; } 
+        public string? genreLabel { get; set; } // what is the genre of music user makes
+        public string? genrePref { get; set; } // what is the genre of music user listens to/prefers
 
 
 
