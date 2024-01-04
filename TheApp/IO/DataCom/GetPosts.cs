@@ -24,7 +24,7 @@ namespace TheApp.IO.DataCom
         // Retrieve posts by Category and PostingID
         public Post[] GetPostsByCategoryAndID(string category, int postingID)
         {
-            string queryString = $"SELECT * FROM posts WHERE Category = '{category}' AND PostingID = {postingID}";
+            string queryString = $"SELECT * FROM posts WHERE Category = '{category}' AND PostingID = {postingID} ORDER BY timestamp DESC;";
             SSQuery query = new SSQuery(); 
             DataTable dt = query.Run(queryString);
 

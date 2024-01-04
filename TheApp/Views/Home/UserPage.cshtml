@@ -1,7 +1,7 @@
 ﻿
 @{
     Layout = "";
-    TheApp.Objects.User[] u = new TheApp.IO.DataCom.GetUsers().GetUser(7);
+    TheApp.Objects.User[] u = new TheApp.IO.DataCom.GetUsers().GetUser((int)ViewData["userID"]);
 }
 
 <div class="row">
@@ -18,7 +18,7 @@
         <h3>@u[0].stageName</h3>
         <p>Genre: @u[0].genreLabel</p>
         <p>Location: @u[0].location</p>
-        <p>Bio Line: The stuff dreams are made of</p>
+        <p>Bio Line: xxxxxxx</p>
     </div>
 </div>
 

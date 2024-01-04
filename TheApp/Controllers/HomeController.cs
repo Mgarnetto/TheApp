@@ -74,8 +74,9 @@ namespace TheApp.Controllers
             return View();
         }
 
-        public IActionResult UserPage()
+        public IActionResult UserPage(int id)
         {
+            ViewData["userID"] = id;
             return View();
         }
 

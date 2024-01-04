@@ -3,10 +3,10 @@
     public class Post
     {   // category isn't right, starts with C instead of c as well as PostingID
         public int postID { get; set; }
-        public int userID { get; set; }
-        public string postType { get; set; }
-        public string postText { get; set; }
-        public string mediaFilePath { get; set; }
+        public int userID { get; set; } // user who posted it
+        public string postType { get; set; } // text image video audio
+        public string postText { get; set; } // what text is on the post
+        public string mediaFilePath { get; set; } // path to media of post type
         public int mediaElementID { get; set; } // to be set by db. so hit db then pages
         public DateTime timeStamp { get; set; }
         public string Category { get; set; } // user, classifieds, etc.

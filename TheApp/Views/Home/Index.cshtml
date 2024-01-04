@@ -13,16 +13,18 @@
         <h1 class="display-4">Welcome to tHEaPP</h1>
     </div>
 
+    <br /><br />
+
+    @await Component.InvokeAsync("TopArtists")
+    
+   
+
     <div class="tab-container">
         <div class="tab-buttons">
             <div class="tab-button active" onclick="openTab('tab1')">Choose By Map</div>
             <div class="tab-button" onclick="openTab('tab2')">Choose By Genre</div>
         </div>
         <div class="tab-content active" id="tab1">
-
-            <h2>US Map</h2>
-
-            <button id="update">Click Here</button>
 
             <div class="map-container">
 
@@ -130,6 +132,6 @@
         });
     </script>
 
-    <p>@ViewData["path"]</p>
+    @*<p>@ViewData["path"]</p>*@
     
 </div>
