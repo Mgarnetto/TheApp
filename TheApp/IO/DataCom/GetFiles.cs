@@ -33,14 +33,27 @@ namespace TheApp.IO.DataCom
             return files;
         }
 
+        public TheApp.Objects.File[] GetProfilePicture(int userID)
+        {
+            string queryString = $"SELECT * FROM [File] WHERE userID = {userID} and mediaElementID = {userID}"
+                + " and fileType = '" + FileTypes.profile + "';";
+
+            //string queryString = "Select * from [File] where userID = 1 and mediaElementID = 1 and fileType = 'image-profile'";
+            SSQuery query = new SSQuery();
+            DataTable dt = query.Run(queryString);
+
+            TheApp.Objects.File[] files = GetObj(dt);
+            return files;
+        }
+
         public TheApp.Objects.File[] GetObj(DataTable dt)
         {
-            int size = dt.Rows.Count;
-            int it = 0;
-            TheApp.Objects.File[] fileArray = new TheApp.Objects.File[size];
-
             try
             {
+                int size = dt.Rows.Count;
+                int it = 0;
+                TheApp.Objects.File[] fileArray = new TheApp.Objects.File[size];
+
                 foreach (DataRow row in dt.Rows)
                 {
                     int fileID = int.Parse(row["fileID"].ToString());

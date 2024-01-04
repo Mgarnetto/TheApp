@@ -2,14 +2,44 @@
 @{
     Layout = "";
     TheApp.Objects.User[] u = new TheApp.IO.DataCom.GetUsers().GetUser((int)ViewData["userID"]);
+
+    try
+    {
+        TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
+        string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
+        <p>@path</p>
+    }catch(Exception ex)
+    {
+        
+    }
+
 }
+
+<form asp-action="TestUpload" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">File:</label>
+        <input type="file" name="file" id="file" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
 
 <div class="row">
     <div class="col-md-3">
         <div class="profile-container">
             <!-- Profile picture go here -->
             <div class="profile-picture">
-                <img src="~/uploads/profile.jfif" alt="Profile Picture 1">
+                @try{
+                    TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
+                    string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
+
+                    <img src="@Url.Content("~/uploads/" + pic[0].fileName)" alt="Profile Picture 1">
+
+                }catch(Exception ex)
+                {
+                    
+                }
+                
             </div>
         </div>
     </div>

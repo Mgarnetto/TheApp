@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using TheApp.Models;
 using TheApp.Objects;
+using Microsoft.AspNetCore.Http;
+using System;
+
 
 namespace TheApp.Controllers
 {
@@ -15,10 +18,47 @@ namespace TheApp.Controllers
             _environment = environment;
         }
 
+        #region Session
+
+        private void CheckUser()
+        {
+            // Check if user information is already in session
+            if (HttpContext.Session.TryGetValue("UserId", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
+            {
+                string userId = System.Text.Encoding.UTF8.GetString(userIdBytesArray);
+
+                // User information is in the session, you can use it
+                HttpContext.Session.SetString("UserId", userId);
+
+                ViewData["UserId"] = userId;
+            }
+            else
+            {
+                // User information is not in the session, set it
+                //string newUserId = "123"; // Replace with your logic to get or generate the user ID
+                //HttpContext.Session.SetString("UserId", newUserId);
+                //ViewData["UserId"] = newUserId;
+            }
+        }
+
+        private bool IsUserInSession()
+        {
+            return HttpContext.Session.TryGetValue("UserId", out _);
+        }
+
+        #endregion
+
         #region nav 
         [HttpGet]
         public IActionResult Index(int? load)
         {
+            //session stuffs
+            //if (!IsUserInSession())
+            //{
+            //    // User information is not in the session, redirect to SelectUser action
+            //    return RedirectToAction(nameof(SelectUser));
+            //}
+
             var contentRootPath = _environment.ContentRootPath;
             var relativePath = Path.Combine("wwwroot", "uploads");
             var fullSavePath = Path.Combine(contentRootPath, relativePath);
@@ -40,6 +80,12 @@ namespace TheApp.Controllers
 
         public IActionResult LoadPage(string target)
         {
+            //if (!IsUserInSession())
+            //{
+            //    // User information is not in the session, redirect to SelectUser action
+            //    return RedirectToAction(nameof(SelectUser));
+            //}
+
             if (target.Equals("Home"))
             {
                 indexLoad = 0;
@@ -76,6 +122,8 @@ namespace TheApp.Controllers
 
         public IActionResult UserPage(int id)
         {
+            //HttpContext.Session.SetString("UserId", id.ToString());
+
             ViewData["userID"] = id;
             return View();
         }
