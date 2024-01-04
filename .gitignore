@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /TheApp/Objects/SaleItem.cs
+/TheApp/wwwroot/uploads/Screenshot 2023-10-28 131245.png
+/TheApp/wwwroot/uploads/Screenshot 2023-12-29 180255.png
