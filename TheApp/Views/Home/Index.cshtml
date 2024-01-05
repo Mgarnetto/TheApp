@@ -15,9 +15,77 @@
 
     <br /><br />
 
-    @await Component.InvokeAsync("TopArtists")
-    
-   
+    @*@await Component.InvokeAsync("TopArtists")*@
+
+    <style>
+        /* Custom styles for the carousel */
+        #artistsCarousel {
+            background-color: #333; /* Dark background color */
+        }
+
+        .carousel-inner {
+            border-radius: 10px; /* Rounded corners for the carousel */
+        }
+
+        .carousel-item {
+            text-align: center;
+            color: #fff; /* Text color */
+        }
+
+            .carousel-item img {
+                border-radius: 10px; /* Rounded corners for the images */
+            }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for captions */
+            border-radius: 10px; /* Rounded corners for the captions */
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #fff; /* Arrow color */
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            filter: invert(1); /* Invert arrow colors for better visibility */
+        }
+    </style>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-dark">Top Ten Artists</h2>
+
+        <div id="artistsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Replace the content below with your actual data -->
+                <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Artist 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Artist 1</h5>
+                        <p>Description for Artist 1.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Artist 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Artist 2</h5>
+                        <p>Description for Artist 2.</p>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+
+            <!-- Carousel Navigation Arrows -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#artistsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#artistsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
 
     <div class="tab-container">
         <div class="tab-buttons">

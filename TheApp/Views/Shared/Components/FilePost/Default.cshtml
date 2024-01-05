@@ -1,0 +1,94 @@
+﻿
+<style>
+    /* Style for the file input container */
+    .file-input-container {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    /* Style for the custom button */
+    .custom-file-button,
+    .custom-upload-button {
+        display: inline-block; /* Display buttons side by side */
+        padding: 2px 10px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 66px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .custom-upload-button {
+        margin-left: 10px; /* Add some margin between buttons */
+    }
+
+    /* Style for the hidden file input */
+    .hidden-file-input {
+        position: absolute;
+        top: -1000px; /* Hide off-screen */
+    }
+</style>
+
+<form id="fileForm" enctype="multipart/form-data">
+    <div class="file-input-container">
+        <!-- Custom button to trigger file input -->
+        <button class="custom-file-button" onclick="openFileInput()">+</button>
+        <button class="custom-upload-button" type="button" onclick="uploadFile()">upload</button>
+
+        <!-- Hidden file input -->
+        <input type="file" id="fileInput" class="hidden-file-input" onchange="displayFileName()">
+    </div>
+    <span id="fileNameDisplay"></span>
+</form>
+
+<script>
+    function displayFileName() {
+        // Display the selected file name
+        var fileNameDisplay = document.getElementById("fileNameDisplay");
+        var fileInput = document.getElementById("fileInput");
+        fileNameDisplay.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : "";
+    }
+</script>
+<script>
+    function openFileInput() {
+        // Trigger the click event on the hidden file input
+        var fileInput = document.getElementById("fileInput");
+        fileInput.click();
+
+        // Prevent the default behavior
+        return false;
+    }
+</script>
+
+<script>
+    function uploadFile() {
+        // Create FormData object
+        var formData = new FormData();
+
+        // Append the file to the FormData object
+        formData.append('file', $('#fileInput')[0].files[0]);
+
+        // Perform AJAX request
+        $.ajax({
+            type: 'POST',
+            url: '/Home/TestUpload',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.error(error);
+            }
+        });
+
+        // Prevent the default form submission
+        return false;
+    }
+    }
+</script>

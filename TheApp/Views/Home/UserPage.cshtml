@@ -15,14 +15,7 @@
 
 }
 
-<form asp-action="TestUpload" asp-controller="Home" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="file">File:</label>
-        <input type="file" name="file" id="file" class="form-control" required>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Upload</button>
-</form>
 
 <div class="row">
     <div class="col-md-3">
@@ -42,6 +35,9 @@
                 
             </div>
         </div>
+
+        <!-- Change Profile Picture -->
+        @await Component.InvokeAsync("FilePost")
     </div>
     <div class="col-md-9">
         <br /><br />

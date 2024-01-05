@@ -18,7 +18,7 @@ namespace TheApp.Controllers
             _environment = environment;
         }
 
-        #region Session
+        #region User Session
 
         private void CheckUser()
         {
@@ -105,9 +105,17 @@ namespace TheApp.Controllers
             }else if (target.Equals("UserPage"))
             {
                 return RedirectToAction("UserPage");
+            }else if (target.Equals("Text"))
+            {
+                return RedirectToAction("Text");
             }
 
             return RedirectToAction("Main");
+        }
+
+        public IActionResult Text()
+        {
+            return View();
         }
 
         public IActionResult SelectUser()

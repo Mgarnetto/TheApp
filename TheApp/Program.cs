@@ -1,7 +1,10 @@
+using TheApp.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 // Add session services
 builder.Services.AddMemoryCache();
@@ -28,6 +31,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapHub<ChatHub>("/chatHub");
 
 // Add session middleware
 app.UseSession();
