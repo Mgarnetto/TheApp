@@ -20,6 +20,25 @@ namespace TheApp.Controllers
 
         #region User Session
 
+        private string GetUser()
+        {
+            // Check if user information is already in session
+            if (HttpContext.Session.TryGetValue("UserId", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
+            {
+                //string userId = System.Text.Encoding.UTF8.GetString(userIdBytesArray);
+
+                // User information is in the session, you can use it
+                //string userIdString = userId;
+
+                // Now 'userIdString' contains the UserId as a string
+                //ViewData["UserId"] = userIdString;
+
+                return System.Text.Encoding.UTF8.GetString(userIdBytesArray);
+            }
+
+            return "";
+        }
+
         private void CheckUser()
         {
             // Check if user information is already in session
@@ -29,7 +48,7 @@ namespace TheApp.Controllers
 
                 // User information is in the session, you can use it
                 HttpContext.Session.SetString("UserId", userId);
-
+                
                 ViewData["UserId"] = userId;
             }
             else
@@ -53,11 +72,11 @@ namespace TheApp.Controllers
         public IActionResult Index(int? load)
         {
             //session stuffs
-            //if (!IsUserInSession())
-            //{
-            //    // User information is not in the session, redirect to SelectUser action
-            //    return RedirectToAction(nameof(SelectUser));
-            //}
+            if (!IsUserInSession())
+            {
+                // User information is not in the session, redirect to SelectUser action
+                return RedirectToAction(nameof(SelectUser));
+            }
 
             var contentRootPath = _environment.ContentRootPath;
             var relativePath = Path.Combine("wwwroot", "uploads");
@@ -72,19 +91,18 @@ namespace TheApp.Controllers
                 ViewData["FirstLoad"] = 1;
             }
 
-
-
+            ViewData["UserID"] = GetUser();
             ViewData["path"] = Path.Combine(contentRootPath, relativePath).ToString();
             return View();
         }
 
         public IActionResult LoadPage(string target)
         {
-            //if (!IsUserInSession())
-            //{
-            //    // User information is not in the session, redirect to SelectUser action
-            //    return RedirectToAction(nameof(SelectUser));
-            //}
+            if (!IsUserInSession())
+            {
+                // User information is not in the session, redirect to SelectUser action
+                return RedirectToAction(nameof(SelectUser));
+            }
 
             if (target.Equals("Home"))
             {
@@ -108,6 +126,9 @@ namespace TheApp.Controllers
             }else if (target.Equals("Text"))
             {
                 return RedirectToAction("Text");
+            }else if (target.Equals("MyPage"))
+            {
+                return RedirectToAction("MyPage");
             }
 
             return RedirectToAction("Main");
@@ -130,10 +151,20 @@ namespace TheApp.Controllers
 
         public IActionResult UserPage(int id)
         {
-            //HttpContext.Session.SetString("UserId", id.ToString());
+            HttpContext.Session.SetString("UserId", id.ToString());
 
             ViewData["userID"] = id;
             return View();
+        }
+
+        public IActionResult MyPage()
+        {
+            int uid = int.Parse(GetUser());
+
+            HttpContext.Session.SetString("UserId", uid.ToString());
+
+            ViewData["userID"] = uid;
+            return RedirectToAction("UserPage", new { id = uid  });
         }
 
         public IActionResult CreateUser()
@@ -177,6 +208,22 @@ namespace TheApp.Controllers
         public IActionResult SeedFiles()
         {
             return View();
+        }
+
+        #endregion
+
+        #region Audio
+        public IActionResult GetAudio(string audioName)
+        {
+            var audioPath = Path.Combine(_environment.ContentRootPath, "wwwroot", "uploads", audioName);
+
+            if (System.IO.File.Exists(audioPath))
+            {
+                var audioBytes = System.IO.File.ReadAllBytes(audioPath);
+                return File(audioBytes, "audio/mp3"); // type based on your audio format
+            }
+
+            return NotFound();
         }
 
         #endregion

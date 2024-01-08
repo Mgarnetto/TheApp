@@ -6,6 +6,8 @@ namespace TheApp.Controllers
     {
         public IActionResult Index()
         {
+            
+                //< img src = "@Url.Content("~/ uploads / " + pic[0].fileName)" alt = "Profile Picture 1" > 
             return View();
         }
     }

@@ -19,9 +19,9 @@ body {
 
 /** Comment Box */
 
-.nested-comment {
-    margin-left: 20px; /* Adjust the margin-left value as needed for your desired indentation */
-}
+/*.nested-comment {
+    margin-left: 20px;*/ /* Adjust the margin-left value as needed for your desired indentation */
+/*}
 
 .comment-box {
     border: 1px solid #ccc;
@@ -29,8 +29,8 @@ body {
     margin: 10px;
     display: flex;
     flex-direction: column;
-    width: 300px; /* Adjust the width as needed */
-}
+    width: 300px;*/ /* Adjust the width as needed */
+/*}
 
 .user-info {
     display: flex;
@@ -39,8 +39,8 @@ body {
 }
 
     .user-info img {
-        width: 40px; /* Adjust the thumbnail size */
-        height: 40px;
+        width: 40px;*/ /* Adjust the thumbnail size */
+        /*height: 40px;
         border-radius: 50%;
         margin-right: 10px;
     }
@@ -51,7 +51,7 @@ body {
 
 .comment-text {
     margin-bottom: 5px;
-}
+}*/
 
 .timestamp {
     align-self: flex-end;

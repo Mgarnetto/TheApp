@@ -27,21 +27,71 @@
                             <a class="site-link nav-link text-dark" data-target="Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="site-link nav-link text-dark" data-target="SelectUser">Select User</a>
+                            <a class="site-link nav-link text-dark" data-target="MyPage">UserPage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="site-link nav-link text-dark" data-target="Text">Text</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="site-link nav-link text-dark" data-target="Testing" >Test</a>
+                            <a class="site-link nav-link text-dark" data-target="Testing">Test</a>
                         </li>
                     </ul>
+
+                    <!-- Account section -->
+                    
+                    <!-- Add the 'data-bs-toggle' and 'data-bs-placement' attributes for the popover -->
+                    <a class="nav-link text-dark" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" title="My Account" data-bs-content="My Page"><span>My Account</span></a>
+                            
                 </div>
             </div>
         </nav>
     </header>
+
+    <div class="chat-container">
+        <div class="main-content">
+            <!-- Main content goes here -->
+        </div>
+
+        <div class="sidebarR" id="sidebarR">
+
+            <div class="users-list">
+                <!-- Dummy Data: User List -->
+                <div class="user" data-toggle="modal" data-target="#messageModal" data-unchecked="true" data-content="Hi there!">
+                    <img src="https://via.placeholder.com/40" alt="User 1" class="user-pic"> User 1
+                </div>
+                <div class="user" data-toggle="modal" data-target="#messageModal" data-unchecked="false" data-content="Hello!">
+                    <img src="https://via.placeholder.com/40" alt="User 2" class="user-pic"> User 2
+                </div>
+                <!-- Add more user items as needed -->
+            </div>
+        </div>
+        <div class="chat-button" id="chatToggle">
+            <div class="chat-icon">&#128172;</div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="https://via.placeholder.com/40" alt="User 1" class="user-pic-modal"> User 1
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="messageContent"></p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Reply space goes here -->
+                    <textarea class="form-control" id="replyTextarea" rows="3" placeholder="Reply..."></textarea>
+                    <!-- Added Reply button -->
+                    <button type="button" class="btn btn-primary" id="replyBtn">Reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @*<button style="position: fixed; margin-left: 5px; margin-top: -10px;" class="openbtn" onclick="openNav()">☰</button>*@
-    <img id="sidebarid" class="openbtn" onclick="openNav()" src="/Pics/right.png" />
+    <img id="sidebarid" class="openbtn" onclick="openNav()" src="/Pics/MBOpen.png" />
     <div class="container">
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
@@ -52,18 +102,39 @@
             <a href="#">Item Z</a>
         </div>
         <main role="main" class="pb-3">
-            <span>
+            @*<span>
                 
                 t:<div id="counter">00:00:00</div>
-            </span>
+            </span>*@
             @RenderBody()
 
             <!-- Custom media player container -->
             <div id="customMediaPlayer" class="minimized">
                 <!-- content goes here -->
+                <!-- Audio Controls Row -->
+                
+                @*<div class="row audio-controls">
+                    <img id="prevBtn" src="path_to_prev_image.png" class="btn btn-primary" alt="Previous">
+                    
+                    <img id="nextBtn" src="path_to_next_image.png" class="btn btn-primary" alt="Next">
+                </div>*@
+
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <img style="max-height: 40px;" id="playPauseBtn" src="~/Pics/Play.png" class="" alt="Play">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>Player soon to be added</p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+
+                    </div>
+                </div>
                 <div class="toggle-btn" id="toggleMediaPlayer">
                     <img style="height: 50px;" src="/Pics/hpicon.jpg" />
                 </div>
+
             </div>
         </main>
     </div>
@@ -74,11 +145,82 @@
         </div>
     </footer>*@
     
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="~/map/us_lcc.js"></script>
 
+    <script>
+        // Your audio list, update via AJAX
+        var audioList = [
+            '@Url.Action("GetAudio", "Home", new { audioName = "OTJ Mix 1.mp3" })',
+            '@Url.Action("GetAudio", "Home", new { audioName = "OTJ Mix 1.mp3" })'
+            // Add more audio files 
+        ];
+
+
+        var audio = new Audio(); // Create an audio element
+
+        var currentIndex = 0; // Keep track of the current audio file index
+
+        function playPause() {
+            if (audio.paused) {
+                audio.src = audioList[currentIndex];
+                audio.play();
+                $('#playPauseBtn').attr('src', '/Pics/Pause.png');
+            } else {
+                audio.pause();
+                $('#playPauseBtn').attr('src', '/Pics/Play.png');
+            }
+        }
+
+        function playNext() {
+            if (currentIndex < audioList.length - 1) {
+                currentIndex++;
+                playPause();
+            }
+        }
+
+        function playPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                playPause();
+            }
+        }
+
+        // click events for images
+        $('#playPauseBtn').on('click', playPause);
+        $('#nextBtn').on('click', playNext);
+        $('#prevBtn').on('click', playPrev);
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var sidebar = $("#sidebar");
+            var chatToggle = $("#chatToggle");
+            var messageContent = $("#messageContent");
+
+            chatToggle.click(function () {
+                sidebar.toggleClass("expanded");
+            });
+
+            $(".user").click(function () {
+                var content = $(this).data("content");
+                $("#messageContent").html(content);
+
+                // Open the Bootstrap modal
+                $("#messageModal").modal("show");
+            });
+
+            // Added click event for Reply button
+            $("#replyBtn").click(function () {
+                var replyText = $("#replyTextarea").val();
+                // Do something with the reply text, e.g., send it
+                console.log("Reply: " + replyText);
+            });
+        });
+    </script>
     <script>
         $('.site-link').click(function (e) {
             e.preventDefault();
@@ -103,10 +245,48 @@
 
     </script>
 
-    
+    <script>
+        $(document).ready(function () {
+            var sidebar = $("#sidebarR");
+            var chatToggle = $("#chatToggle");
+            var messageContent = $("#messageContent");
+
+            chatToggle.click(function () {
+                sidebar.toggleClass("expanded");
+            });
+
+            $(".user").click(function () {
+                var content = $(this).data("content");
+                $("#messageContent").html(content);
+
+                // Open the Bootstrap modal
+                $("#messageModal").modal("show");
+            });
+
+            // Added click event for Reply button
+            $("#replyBtn").click(function () {
+                var replyText = $("#replyTextarea").val();
+                // Do something with the reply text, e.g., send it
+                console.log("Reply: " + replyText);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="popover"]').popover({
+                trigger: 'click', // Change this to 'click' if you want to toggle on click
+                placement: 'bottom',
+                html: true
+            });
+        });
+    </script>
+
+
+
     
     @*counter just because*@
-    <script>
+    @*<script>
         var totalSeconds = 0;
 
         function updateCounter() {
@@ -123,7 +303,7 @@
 
         // Initial update
         updateCounter();
-    </script>
+    </script>*@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

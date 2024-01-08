@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TheApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Main.css" />
+    <link rel="stylesheet" href="~/map/jquery-jvectormap-2.0.5.css" asp-append-version="false" />
+
+    <!--required here for map -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @*<button style="position: fixed; margin-left: 5px; margin-top: -10px;" class="openbtn" onclick="openNav()">☰</button>*@
+    <img id="sidebarid" class="openbtn" onclick="openNav()" src="/Pics/right.png" />
+    <div class="container">
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+            <a href="#">Moozic Box</a>
+            <br />
+            <a href="#">Item X</a>
+            <a href="#">Item Y</a>
+            <a href="#">Item Z</a>
+        </div>
+        <main role="main" class="pb-3">
+            <span>
+
+                t:<div id="counter">00:00:00</div>
+            </span>
+            @RenderBody()
+
+            <!-- Custom media player container -->
+            <div id="customMediaPlayer" class="minimized">
+                <!-- content goes here -->
+                <div class="toggle-btn" id="toggleMediaPlayer">
+                    <img style="height: 50px;" src="/Pics/hpicon.jpg" />
+                </div>
+            </div>
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - TheApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
+    <script src="~/map/us_lcc.js"></script>
+
+    <script>
+        $('.site-link').click(function (e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+            loadContent(target);
+        });
+
+        function loadContent(target) {
+            $.ajax({
+                url: '/Home/LoadPage',
+                type: 'POST',
+                data: { target: target },
+                success: function (response) {
+                    $('#SiteContent').html(response);
+
+                },
+                error: function () {
+                    alert('Error making AJAX call.');
+                }
+            });
+        }
+
+    </script>
+
+
+
+    @*counter just because*@
+    <script>
+        var totalSeconds = 0;
+
+        function updateCounter() {
+            var hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+            var minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+            var seconds = (totalSeconds % 60).toString().padStart(2, '0');
+
+            document.getElementById('counter').innerText = hours + ':' + minutes + ':' + seconds;
+            totalSeconds++;
+        }
+
+        // Update the counter every second
+        setInterval(updateCounter, 1000);
+
+        // Initial update
+        updateCounter();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -3,6 +3,7 @@
     Layout = "";
 }
 <div class="text-center">
-    <h2>@ViewData["state"]</h2>
-    <h3>Page</h3>
+    <h1>@ViewData["state"]</h1>
 </div>
+<br />
+@await Component.InvokeAsync("TopArtists")

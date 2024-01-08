@@ -7,7 +7,7 @@
     {
         TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
         string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
-        <p>@path</p>
+        //<p>@path</p>
     }catch(Exception ex)
     {
         
@@ -15,38 +15,55 @@
 
 }
 
+<!-- New page -->
 
+    <div class="artist-section">
+        <div class="artist-image">
 
-<div class="row">
-    <div class="col-md-3">
-        <div class="profile-container">
-            <!-- Profile picture go here -->
-            <div class="profile-picture">
-                @try{
-                    TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
-                    string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
+            @try
+            {
+                TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
+                string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
 
-                    <img src="@Url.Content("~/uploads/" + pic[0].fileName)" alt="Profile Picture 1">
+                <img src="~/Pics/pic.jfif" alt="Artist Image">
 
-                }catch(Exception ex)
-                {
-                    
-                }
                 
-            </div>
+                
+            }
+            catch (Exception ex)
+            {
+                <img src="~/Pics/pic.jfif" alt="Artist Image">
+            }
+            
         </div>
 
         <!-- Change Profile Picture -->
         @await Component.InvokeAsync("FilePost")
-    </div>
-    <div class="col-md-9">
-        <br /><br />
-        <h3>@u[0].stageName</h3>
-        <p>Genre: @u[0].genreLabel</p>
-        <p>Location: @u[0].location</p>
-        <p>Bio Line: xxxxxxx</p>
-    </div>
-</div>
 
-@await Component.InvokeAsync("Post", new {type = "User", ID = u[0].userID})
-        
+        <div class="artist-info">
+            <div class="artist-name">@u[0].stageName</div>
+            <div class="artist-details">Location: @u[0].location</div>
+            <div class="artist-details">Genre: @u[0].genreLabel</div>
+            <div class="bio">
+                Bio Text, This will be replaced with UserInfo in Database....
+            </div>
+        </div>
+        <div class="new-releases">
+            <!-- Replace with actual release data -->
+            <div class="release-thumbnail">
+                <img src="https://via.placeholder.com/80" alt="Release 1">
+            </div>
+            <div class="release-thumbnail">
+                <img src="https://via.placeholder.com/80" alt="Release 2">
+            </div>
+            <div class="release-thumbnail">
+                <img src="https://via.placeholder.com/80" alt="Release 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Posts -->
+    @await Component.InvokeAsync("Post", new {type = "User", ID = u[0].userID})
+    
+
+<!-- End New page -->

@@ -8,21 +8,40 @@
     {   
         User[] user = new GetUsers().GetUser(p.userID);
 
-        <div class="container mt-3">
+        <div class="post-container center-posts">
             <!-- Post -->
-            <div class="media post-box">
-                <img src="/Pics/UP.png" class="align-self-start mr-3" alt="Author Thumbnail" width="48">
-                <div class="media-body">
-                    <h5 class="mt-0">@user[0].firstName @user[0].lastName:</h5>
-                    <small class="text-muted">@DateTimeConverter.ToDateTimeString(p.timeStamp)</small>
-                    <p>@p.postText</p>
-                </div>
+
+            <div class="post-user-info">
+                
+                <img class="user-thumbnail" src="https://via.placeholder.com/30" alt="User Thumbnail">
+
+                <div>@user[0].firstName @user[0].lastName</div>
             </div>
+            <div class="post-content">
+                <p>@p.postText</p>
+                <!-- Replace with actual post image, video, or audio -->
+                <div class="row">
+                    <img src="https://via.placeholder.com/500" alt="Post Image">
+                </div>
+                <div class="row">
+                    <small class="text-muted">@DateTimeConverter.ToDateTimeString(p.timeStamp)</small>
+                </div>
+                
+                
+            </div>
+            
             <!-- End Post -->
             @await Component.InvokeAsync("Comment", new int[]{ p.mediaElementID })
         </div>
 
+
+
         <br />
     }
+
+
     
 }
+
+
+    

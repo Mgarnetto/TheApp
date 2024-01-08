@@ -2,6 +2,7 @@
 {
     public class Comment
     {
+        //@await Component.InvokeAsync("Comment", new int[]{ p.mediaElementID, p.commentID }) 
         public int commentID {  get; set; } 
         public int userID { get; set; }  
         public int mediaElementID { get; set; }
