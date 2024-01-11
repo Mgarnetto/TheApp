@@ -2,18 +2,6 @@
     font-family: "Lato", sans-serif;
 }
 
-.audio-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-    .audio-controls img {
-        width: 50px; /* Adjust the size as needed */
-        height: 50px;
-    }
-
 .bborder {
     border: 1px solid black;
 }
@@ -165,33 +153,8 @@
         }
 }
 
-#customMediaPlayer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #f0f0f0;
-}
 
-    #customMediaPlayer.minimized {
-        height: 50px; /* Set the minimized height */
-        overflow: hidden;
-    }
 
-        #customMediaPlayer.minimized .toggle-btn {
-            bottom: 50px;
-        }
-
-.toggle-btn {
-    cursor: pointer;
-    padding: 0px;
-    border: 1px solid #ccc;
-    text-align: center;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;    
-    z-index: 5;
-}
 
 #sidebarid {
     position: fixed;
@@ -383,3 +346,66 @@
     flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
+/* Media player */
+
+#minMaxButtonContainer {
+    position: fixed;
+    bottom: 5px; /* Adjusted position */
+    left: 10px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#minMaxButton {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+#maximizeButton {
+    position: fixed;
+    bottom: 5px; /* Adjusted position */
+    right: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 999;
+    font-size: 2em;
+}
+
+.media-player-container {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+}
+
+    .media-player-container.show {
+        transform: translateY(0);
+    }
+
+#audioControls {
+    display: flex;
+    align-items: center;
+}
+
+#trackInfo {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+button {
+    margin: 0 5px;
+}
+
+#playPauseBtn {
+    margin-left: 40px;
+}

@@ -2,29 +2,62 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-//Disable the send button until connection is established.
-document.getElementById("sendButton").disabled = true;
+// Disable the send button until connection is established.
+//document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (data) {
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    // We can assign user-supplied strings to an element's textContent because it
-    // is not interpreted as markup. If you're assigning in any other way, you 
-    // should be aware of possible script injection concerns.
-    li.textContent = `${user} says ${message}`;
+
+    // Display the received message with sender's name, userID, picurl, message, and timestamp.
+    li.textContent = `${data.senderName} (${data.userID}) says: ${data.message} (${data.timeStamp})`;
 });
 
-connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
-});
+// Ensure the connection is started before attempting to send the connection ID
+startConnection();
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
+    var userID = document.getElementById("userIDInput").value;
     var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
+
+    // Send the message along with recipient's userID.
+    connection.invoke("SendMessage", userID, message).catch(function (err) {
         return console.error(err.toString());
     });
+
     event.preventDefault();
 });
+
+function startConnection() {
+    connection.start()
+        .then(function () {
+            // Get the connection ID after the connection is established
+            connection.invoke("GetConnectionId")
+                .then(function (connectionId) {
+                    // Send the connection ID to the HomeController
+                    sendConnectionIdToHomeController(connectionId);
+
+                    // Enable the send button
+                    document.getElementById("sendButton").disabled = false;
+                })
+                .catch(function (err) {
+                    console.error(err.toString());
+                });
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+            // Retry or handle the error as needed
+        });
+}
+
+function sendConnectionIdToHomeController(connectionId) {
+    // Use AJAX to send the connection ID to the HomeController without expecting a response
+    $.post("/Home/SendConnectionId", { connectionId: connectionId })
+        .done(function () {
+            console.log("Connection ID sent");
+        })
+        .fail(function () {
+            console.error("Connection ID Error");
+        });
+}
+

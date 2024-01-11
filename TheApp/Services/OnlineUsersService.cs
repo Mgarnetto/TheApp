@@ -1,24 +1,11 @@
-﻿namespace TheApp.Services
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace TheApp.Services
 {
     public class OnlineUsersService
     {
-
-        //      Add user when they connect
-        //string userId = "someUserId"; // replace with actual user ID
-        //OnlineUsersService.Instance.AddUser(userId);
-
-        //      Remove user when they disconnect
-        //OnlineUsersService.Instance.RemoveUser(userId);
-
-        //      Get total users online
-        //int totalUsersOnline = OnlineUsersService.Instance.GetTotalUsersOnline();
-
-        //      Get list of online user IDs
-        //IEnumerable<string> onlineUserIds = OnlineUsersService.Instance.GetOnlineUserIds();
-
-
-        private readonly HashSet<string> _onlineUserIds = new HashSet<string>();
-
+        private readonly Dictionary<string, string> _userConnectionMap = new Dictionary<string, string>();
         private static OnlineUsersService _instance;
         private static readonly object _lock = new object();
 
@@ -42,41 +29,68 @@
             }
         }
 
-        public void AddUser(string userId)
+        public void AddUser(string userId, string connectionId)
         {
-            lock (_onlineUserIds)
+            lock (_userConnectionMap)
             {
-                if (!_onlineUserIds.Contains(userId))
+                if (!_userConnectionMap.ContainsKey(userId))
                 {
-                    _onlineUserIds.Add(userId);
+                    _userConnectionMap.Add(userId, connectionId);
                 }
             }
         }
 
+        public void RemoveUserByConnectionId(string connectionId)
+        {
+            lock (_userConnectionMap)
+            {
+                // Find the key (userId) based on the provided connectionId
+                var userIdToRemove = _userConnectionMap.FirstOrDefault(x => x.Value == connectionId).Key;
+
+                // If a matching key is found, remove the entry
+                if (userIdToRemove != null)
+                {
+                    _userConnectionMap.Remove(userIdToRemove);
+                }
+            }
+        }
+
+        public string GetUserIDByConnectionID(string connectionId)
+        {
+            return _userConnectionMap.FirstOrDefault(x => x.Value == connectionId).Key;
+        }
+
+
         public void RemoveUser(string userId)
         {
-            lock (_onlineUserIds)
+            lock (_userConnectionMap)
             {
-                _onlineUserIds.Remove(userId);
+                _userConnectionMap.Remove(userId);
             }
         }
 
         public int GetTotalUsersOnline()
         {
-            lock (_onlineUserIds)
+            lock (_userConnectionMap)
             {
-                return _onlineUserIds.Count;
+                return _userConnectionMap.Count;
             }
         }
 
         public IEnumerable<string> GetOnlineUserIds()
         {
-            lock (_onlineUserIds)
+            lock (_userConnectionMap)
             {
-                return _onlineUserIds.ToList();
+                return _userConnectionMap.Keys.ToList();
+            }
+        }
+
+        public string GetConnectionId(string userId)
+        {
+            lock (_userConnectionMap)
+            {
+                return _userConnectionMap.ContainsKey(userId) ? _userConnectionMap[userId] : null;
             }
         }
     }
-
-
 }

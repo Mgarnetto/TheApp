@@ -4,6 +4,8 @@ using TheApp.Models;
 using TheApp.Objects;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.AspNetCore.SignalR;
+using TheApp.Services;
 
 
 namespace TheApp.Controllers
@@ -12,6 +14,7 @@ namespace TheApp.Controllers
     {
         int indexLoad = 1;
         private readonly IWebHostEnvironment _environment;
+        private OnlineUsersService? _onlineUsersService;
 
         public HomeController(IWebHostEnvironment environment)
         {
@@ -20,6 +23,24 @@ namespace TheApp.Controllers
 
         #region User Session
 
+        [HttpPost]
+        public void SendConnectionID(string connectionId)
+        {
+            //string userId = GetUser(); // Assuming you have a method to get the user ID
+
+
+
+            //if (!string.IsNullOrEmpty(userId))
+            //{
+            //    _onlineUsersService.AddUser(userId, connectionId);
+
+            //    // You can broadcast the user count or other information to clients if needed
+            //    int totalUsers = _onlineUsersService.GetTotalUsersOnline();
+            //    //_hubContext.Clients.All.SendAsync("UserCountUpdated", totalUsers);
+            //}
+            HttpContext.Session.SetString("ConnectionID", connectionId);
+
+        }
         private string GetUser()
         {
             // Check if user information is already in session
@@ -151,8 +172,16 @@ namespace TheApp.Controllers
 
         public IActionResult UserPage(int id)
         {
+            string cid = HttpContext.Session.GetString("ConnectionID");
             HttpContext.Session.SetString("UserId", id.ToString());
 
+            _onlineUsersService = OnlineUsersService.Instance;
+
+            _onlineUsersService.AddUser(id.ToString(), cid);
+
+            int a = _onlineUsersService.GetTotalUsersOnline();
+
+            ViewData["ConnectionID"] = cid;
             ViewData["userID"] = id;
             return View();
         }
@@ -333,6 +362,8 @@ namespace TheApp.Controllers
         #region test
         public IActionResult Testing()
         {
+            _onlineUsersService = OnlineUsersService.Instance;
+            ViewData["UsersOnline"] = _onlineUsersService.GetTotalUsersOnline();
             return View();
         }
         #endregion

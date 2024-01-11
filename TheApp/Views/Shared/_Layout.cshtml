@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Main.css" />
     <link rel="stylesheet" href="~/map/jquery-jvectormap-2.0.5.css" asp-append-version="false" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
+
 
     <!--required here for map -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -83,7 +85,7 @@
                     <!-- Reply space goes here -->
                     <textarea class="form-control" id="replyTextarea" rows="3" placeholder="Reply..."></textarea>
                     <!-- Added Reply button -->
-                    <button type="button" class="btn btn-primary" id="replyBtn">Reply</button>
+                    <button type="button" class="btn btn-primary" id="sendButton">Reply</button>
                 </div>
             </div>
         </div>
@@ -109,32 +111,24 @@
             @RenderBody()
 
             <!-- Custom media player container -->
-            <div id="customMediaPlayer" class="minimized">
-                <!-- content goes here -->
-                <!-- Audio Controls Row -->
-                
-                @*<div class="row audio-controls">
-                    <img id="prevBtn" src="path_to_prev_image.png" class="btn btn-primary" alt="Previous">
-                    
-                    <img id="nextBtn" src="path_to_next_image.png" class="btn btn-primary" alt="Next">
-                </div>*@
+            <div id="minMaxButtonContainer">
+                <div id="minMaxButton">&#9650;</div>
+                <div id="maximizeButton">&#9635;</div>
+            </div>
 
-                <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <img style="max-height: 40px;" id="playPauseBtn" src="~/Pics/Play.png" class="" alt="Play">
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>Player soon to be added</p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
-
-                    </div>
+            <div class="media-player-container" id="mediaPlayerContainer">
+                <div id="audioControls">
+                    <!-- Your audio controls go here -->
+                    <!-- Example: Play, Pause, Next, Previous buttons -->
+                    <button id="playPauseBtn">Play</button>
+                    <button id="nextBtn">Next</button>
+                    <button id="prevBtn">Previous</button>
                 </div>
-                <div class="toggle-btn" id="toggleMediaPlayer">
-                    <img style="height: 50px;" src="/Pics/hpicon.jpg" />
+                <div id="trackInfo">
+                    <!-- Your track info goes here -->
+                    OTJ Mix 1 - Demp
                 </div>
-
+                <!-- Add additional elements on the right as needed -->
             </div>
         </main>
     </div>
@@ -147,9 +141,34 @@
     
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="~/js/chat.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="~/map/us_lcc.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var mediaPlayerContainer = $("#mediaPlayerContainer");
+            var minMaxButton = $("#minMaxButton");
+            var maximizeButton = $("#maximizeButton");
+
+            minMaxButton.click(function () {
+                mediaPlayerContainer.toggleClass("show");
+                var icon = mediaPlayerContainer.hasClass("show") ? "&#9660;" : "&#9650;";
+                minMaxButton.html(icon);
+                maximizeButton.toggle();
+            });
+
+            maximizeButton.click(function () {
+                mediaPlayerContainer.removeClass("show");
+                minMaxButton.html("&#9650;");
+                maximizeButton.hide();
+            });
+
+            // Make sure to use the correct IDs for the buttons.
+        });
+    </script>
 
     <script>
         // Your audio list, update via AJAX
@@ -282,28 +301,6 @@
         });
     </script>
 
-
-
-    
-    @*counter just because*@
-    @*<script>
-        var totalSeconds = 0;
-
-        function updateCounter() {
-            var hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-            var minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-            var seconds = (totalSeconds % 60).toString().padStart(2, '0');
-
-            document.getElementById('counter').innerText = hours + ':' + minutes + ':' + seconds;
-            totalSeconds++;
-        }
-
-        // Update the counter every second
-        setInterval(updateCounter, 1000);
-
-        // Initial update
-        updateCounter();
-    </script>*@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
