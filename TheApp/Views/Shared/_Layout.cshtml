@@ -16,15 +16,15 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav style="z-index: 2 !important;" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand site-link" data-target="Home">TheApp</a>
+                <a class="navbar-brand site-link" data-target="Home"></a> 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul style="z-index: 2 !important;" class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="site-link nav-link text-dark" data-target="Home">Home</a>
                         </li>
@@ -46,69 +46,39 @@
         </nav>
     </header>
 
-    <div class="chat-container">
-        <div class="main-content">
-            <!-- Main content goes here -->
-        </div>
-
-        <div class="sidebarR" id="sidebarR">
-
-            <div class="users-list">
-                <!-- Dummy Data: User List -->
-                <div class="user" data-toggle="modal" data-target="#messageModal" data-unchecked="true" data-content="Hi there!">
-                    <img src="https://via.placeholder.com/40" alt="User 1" class="user-pic"> User 1
-                </div>
-                <div class="user" data-toggle="modal" data-target="#messageModal" data-unchecked="false" data-content="Hello!">
-                    <img src="https://via.placeholder.com/40" alt="User 2" class="user-pic"> User 2
-                </div>
-                <!-- Add more user items as needed -->
-            </div>
-        </div>
-        <div class="chat-button" id="chatToggle">
-            <div class="chat-icon">&#128172;</div>
-        </div>
+    <!-- SIDE BAR -->
+    <div style="text-indent: 5px;cursor: pointer; color: white;" id="sidebar">
+        <!-- Sidebar content here -->
+        <p>Moozic Box</p>
+        <br />
+        <!-- Messages button -->
+        <p id="openMessages" style="">Messages</p>
+        <br />
+        
     </div>
 
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="https://via.placeholder.com/40" alt="User 1" class="user-pic-modal"> User 1
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="messageContent"></p>
-                </div>
-                <div class="modal-footer">
-                    <!-- Reply space goes here -->
-                    <textarea class="form-control" id="replyTextarea" rows="3" placeholder="Reply..."></textarea>
-                    <!-- Added Reply button -->
-                    <button type="button" class="btn btn-primary" id="sendButton">Reply</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    @*<button style="position: fixed; margin-left: 5px; margin-top: -10px;" class="openbtn" onclick="openNav()">☰</button>*@
-    <img id="sidebarid" class="openbtn" onclick="openNav()" src="/Pics/MBOpen.png" />
     <div class="container">
-        <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
-            <a href="#">Moozic Box</a>
-            <br />
-            <a href="#">Item X</a>
-            <a href="#">Item Y</a>
-            <a href="#">Item Z</a>
-        </div>
+
+        @await Component.InvokeAsync("Messages")
+
         <main role="main" class="pb-3">
             @*<span>
                 
                 t:<div id="counter">00:00:00</div>
             </span>*@
-            @RenderBody()
+
+            <!-- Collapsible Sidebar -->
+            
+
+            <!-- Page Content -->
+            <div id="content">
+                <button style="z-index: 1 !important;" class="btn btn-dark" id="collapse-btn"></button>
+
+                @RenderBody()
+                <!-- Page content here -->
+            </div>
+
+            
 
             <!-- Custom media player container -->
             <div id="minMaxButtonContainer">
@@ -147,6 +117,28 @@
     <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="~/map/us_lcc.js"></script>
 
+    <!-- Message Modal -->
+    <script>
+        $(document).ready(function () {
+            $("#openMessages").click(function () {
+                $("#MessageModal").modal("show");
+            });
+        });
+    </script>
+
+    <!-- Left Sidebar -->
+    <script>
+        $(document).ready(function () {
+            $("#collapse-btn").click(function () {
+                $("#sidebar").toggleClass("collapsed");
+                $("#content").toggleClass("collapsed");
+                $("#collapse-btn").toggleClass("collapsed");
+                $(".extended-content").toggleClass("collapsed");
+            });
+        });
+    </script>
+
+    <!-- Media Player -->
     <script>
         $(document).ready(function () {
             var mediaPlayerContainer = $("#mediaPlayerContainer");

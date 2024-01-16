@@ -9,8 +9,6 @@ namespace TheApp.Hubs
 {
     public class ChatHub : Hub
     {
-        
-
         public override async Task OnConnectedAsync()
         {
             var connectionId = Context.ConnectionId;
@@ -20,16 +18,16 @@ namespace TheApp.Hubs
 
             await base.OnConnectedAsync();
         }
+
         public async Task SendMessage(string userID, string messageText)
         {
             OnlineUsersService _onlineUsersService;
 
             _onlineUsersService = OnlineUsersService.Instance;
 
-
             // Get the sender's details
             var senderID = _onlineUsersService.GetUserIDByConnectionID(Context.ConnectionId);
-            var senderName = "SenderName"; // Replace 
+            var senderName = new GetUsers().GetUser(int.Parse(userID)); 
             var picurl = "URL_to_sender_pic"; // Replace
             var timeStamp = DateTime.Now.ToString();
 

@@ -17,7 +17,7 @@ connection.on("ReceiveMessage", function (data) {
 startConnection();
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var userID = document.getElementById("userIDInput").value;
+    var userID = document.getElementById("receiverID").value;
     var message = document.getElementById("messageInput").value;
 
     // Send the message along with recipient's userID.
