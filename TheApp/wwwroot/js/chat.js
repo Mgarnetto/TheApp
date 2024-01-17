@@ -18,10 +18,10 @@ startConnection();
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var userID = document.getElementById("receiverID").value;
-    var message = document.getElementById("messageInput").value;
+    var messageText = document.getElementById("messageText").value;
 
     // Send the message along with recipient's userID.
-    connection.invoke("SendMessage", userID, message).catch(function (err) {
+    connection.invoke("SendMessage", userID, messageText).catch(function (err) {
         return console.error(err.toString());
     });
 

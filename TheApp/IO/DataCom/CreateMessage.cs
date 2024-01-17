@@ -13,7 +13,7 @@ namespace TheApp.IO.DataCom
 
         public int InsertMessage(Message message)
         {
-            string queryString = @"INSERT INTO messages (senderID, receiverID, read, sent, deleted, message, DateTime)
+            string queryString = @"INSERT INTO messages (senderID, receiverID, [read], sent, deleted, message, DateTime)
                                    VALUES (@senderID, @receiverID, @read, @sent, @deleted, @messageText, @DateTime);
                                    SELECT SCOPE_IDENTITY();";
 
@@ -32,7 +32,16 @@ namespace TheApp.IO.DataCom
                     command.Parameters.AddWithValue("@DateTime", message.DateTime);
 
                     // Execute the query and return the auto-incremented ID
-                    return Convert.ToInt32(command.ExecuteScalar());
+                    try
+                    {
+                        int a = Convert.ToInt32(command.ExecuteScalar());
+                        return a;
+                    }catch (Exception ex)
+                    {
+                        string msg = ex.Message;
+                    }
+
+                    return 0;
                 }
             }
         }

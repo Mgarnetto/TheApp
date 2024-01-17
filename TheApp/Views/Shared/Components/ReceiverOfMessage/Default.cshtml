@@ -1,0 +1,18 @@
+﻿@using TheApp.Objects;
+@using TheApp.IO.DataCom;
+
+@{
+    User[] users = new GetUsers().GetAll();
+
+    <label for="recipientDropdown" class="form-label">Recipient</label>
+
+    <select class="form-select" id="receiverID">
+   
+        @foreach (User u in users)
+        {
+            <option value="@u.userID">@u.firstName @u.lastName</option>
+        }
+
+    </select>
+
+}

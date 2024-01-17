@@ -29,8 +29,8 @@
 
 .message-sender-name {
     margin: 0;
-    line-height: 50px; /* Vertical centering */
-    margin-right: 20px; /* Adjust as needed for indentation */
+    line-height: 50px; /* vertical centering */
+    margin-right: 20px; /* indentation */
 }
 
 .message-content {
@@ -39,6 +39,10 @@
 
 .message-text {
     margin: 0;
+}
+
+.modal-content {
+    min-height: 400px; /* make all modals same min size */
 }
 
 /* Style for the file input container */
@@ -55,7 +59,7 @@
     right: 0;
     margin: 0;
     padding: 0;
-    font-size: 150px; /* Adjust the font size as needed */
+    font-size: 150px; /* Adjust font size*/
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0); /* For IE 8 and earlier */

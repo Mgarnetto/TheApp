@@ -35,7 +35,7 @@ namespace TheApp.Hubs
             var message = new Message
             {
                 senderID = int.Parse(senderID),
-                receiverID = /* Get the receiver's ID based on the provided userID */ 1,
+                receiverID = int.Parse(userID), /* Get the receiver's ID based on the provided userID */ 
                 read = 0,
                 sent = 1,
                 deleted = 0,
