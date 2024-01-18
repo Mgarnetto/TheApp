@@ -61,3 +61,7 @@ function sendConnectionIdToHomeController(connectionId) {
         });
 }
 
+// enabling messages via server 
+connection.on("EnableMessages", function () {
+    enableMessages();
+});

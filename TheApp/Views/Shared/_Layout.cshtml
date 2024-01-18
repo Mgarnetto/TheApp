@@ -62,11 +62,7 @@
         @await Component.InvokeAsync("Messages")
 
         <main role="main" class="pb-3">
-            @*<span>
-                
-                t:<div id="counter">00:00:00</div>
-            </span>*@
-
+           
             <!-- Collapsible Sidebar -->
             
 
@@ -103,12 +99,6 @@
         </main>
     </div>
 
-    @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - TheApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
-    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -116,6 +106,46 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/map/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="~/map/us_lcc.js"></script>
+
+    <!-- Diable messages until login -->
+    <script>
+        $(document).ready(function () {
+            disableMessages();
+        });
+
+        function disableMessages() {
+            var paragraph = document.getElementById("openMessages");
+            paragraph.setAttribute("disabled", "true");
+            
+            paragraph.style.color = "lightgray";
+            paragraph.style.pointerEvents = "none";
+        }
+
+        function enableMessages() {
+
+            loadMessages();
+
+            var paragraph = document.getElementById("openMessages");
+            paragraph.removeAttribute("disabled");
+            // Reset styles to enable
+            paragraph.style.color = "white"; // Reset to default color
+            paragraph.style.pointerEvents = "auto"; // Reset pointer events
+        }
+
+        function loadMessages() {
+            $.ajax({
+                url: '/Home/GetMessageList',
+                type: 'POST',
+                success: function (response) {
+                    $('#MessageList').html(response);
+                },
+                error: function () {
+                    alert('Error making AJAX call.');
+                }
+            });
+        }
+
+    </script>
 
     <!-- Modal stuff -->
     <script>

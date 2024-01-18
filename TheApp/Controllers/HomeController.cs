@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.SignalR;
 using TheApp.Services;
+using TheApp.Hubs;
 
 
 namespace TheApp.Controllers
@@ -15,10 +16,21 @@ namespace TheApp.Controllers
         int indexLoad = 1;
         private readonly IWebHostEnvironment _environment;
         private OnlineUsersService? _onlineUsersService;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public HomeController(IWebHostEnvironment environment)
+        public HomeController(IWebHostEnvironment environment, IHubContext<ChatHub> hubContext)
         {
             _environment = environment;
+            _hubContext = hubContext;
+        }
+
+        public IActionResult GetMessageList()
+        {
+            string cid = HttpContext.Session.GetString("ConnectionID");
+            string userID = HttpContext.Session.GetString("UserID");
+
+            ViewData["userID"] = userID;
+            return View();
         }
 
         #region User Session
@@ -26,34 +38,20 @@ namespace TheApp.Controllers
         [HttpPost]
         public void SendConnectionID(string connectionId)
         {
-            //string userId = GetUser(); // Assuming you have a method to get the user ID
-
-
-
-            //if (!string.IsNullOrEmpty(userId))
-            //{
-            //    _onlineUsersService.AddUser(userId, connectionId);
-
-            //    // You can broadcast the user count or other information to clients if needed
-            //    int totalUsers = _onlineUsersService.GetTotalUsersOnline();
-            //    //_hubContext.Clients.All.SendAsync("UserCountUpdated", totalUsers);
-            //}
             HttpContext.Session.SetString("ConnectionID", connectionId);
-
         }
+
+        public void SetUserID(string userId)
+        {
+            HttpContext.Session.SetString("UserID", userId);
+        }
+
+        // Make SURE this is called to enable messaging (messages)
         private string GetUser()
         {
             // Check if user information is already in session
-            if (HttpContext.Session.TryGetValue("UserId", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
+            if (HttpContext.Session.TryGetValue("UserID", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
             {
-                //string userId = System.Text.Encoding.UTF8.GetString(userIdBytesArray);
-
-                // User information is in the session, you can use it
-                //string userIdString = userId;
-
-                // Now 'userIdString' contains the UserId as a string
-                //ViewData["UserId"] = userIdString;
-
                 return System.Text.Encoding.UTF8.GetString(userIdBytesArray);
             }
 
@@ -63,27 +61,22 @@ namespace TheApp.Controllers
         private void CheckUser()
         {
             // Check if user information is already in session
-            if (HttpContext.Session.TryGetValue("UserId", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
+            if (HttpContext.Session.TryGetValue("UserID", out var userIdBytes) && userIdBytes is byte[] userIdBytesArray)
             {
-                string userId = System.Text.Encoding.UTF8.GetString(userIdBytesArray);
-
-                // User information is in the session, you can use it
-                HttpContext.Session.SetString("UserId", userId);
+                string userID = System.Text.Encoding.UTF8.GetString(userIdBytesArray);
                 
-                ViewData["UserId"] = userId;
+                _hubContext.Clients.Client(HttpContext.Session.GetString("ConnectionID")).SendAsync("EnableMessages");
             }
             else
             {
-                // User information is not in the session, set it
-                //string newUserId = "123"; // Replace with your logic to get or generate the user ID
-                //HttpContext.Session.SetString("UserId", newUserId);
-                //ViewData["UserId"] = newUserId;
+                // Handle the case where UserID is not in session
             }
         }
 
+
         private bool IsUserInSession()
         {
-            return HttpContext.Session.TryGetValue("UserId", out _);
+            return HttpContext.Session.TryGetValue("UserID", out _);
         }
 
         #endregion
@@ -173,13 +166,18 @@ namespace TheApp.Controllers
         public IActionResult UserPage(int id)
         {
             string cid = HttpContext.Session.GetString("ConnectionID");
-            HttpContext.Session.SetString("UserId", id.ToString());
+            SetUserID(id + "");
 
             _onlineUsersService = OnlineUsersService.Instance;
 
             _onlineUsersService.AddUser(id.ToString(), cid);
 
             int a = _onlineUsersService.GetTotalUsersOnline();
+            string str = HttpContext.Session.GetString("UserID");
+
+            CheckUser();
+
+            //string st = HttpContext.Session.GetString("UserID");
 
             ViewData["ConnectionID"] = cid;
             ViewData["userID"] = id;
@@ -190,7 +188,7 @@ namespace TheApp.Controllers
         {
             int uid = int.Parse(GetUser());
 
-            HttpContext.Session.SetString("UserId", uid.ToString());
+            HttpContext.Session.SetString("UserID", uid.ToString());
 
             ViewData["userID"] = uid;
             return RedirectToAction("UserPage", new { id = uid  });

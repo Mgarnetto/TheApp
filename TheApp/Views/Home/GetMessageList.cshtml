@@ -1,0 +1,22 @@
+﻿@using TheApp.Objects;
+@using TheApp.IO.DataCom;
+
+@{
+    Message[] messages = new GetMessages().GetMessagesByUser(int.Parse(ViewData["userID"].ToString()));
+
+    <!-- Message Rows (automate) -->
+
+    foreach(Message m in messages)
+    {
+        User[] sender = new GetUsers().GetUser(m.senderID);
+
+        <div class="message-row" onclick="openMessageContentModal()">
+            <img src="https://via.placeholder.com/50" class="message-sender-image" alt="Sender Pic">
+            <p class="message-sender-name">@sender[0].firstName @sender[0].lastName</p>
+        </div>
+    }
+    
+
+}
+
+

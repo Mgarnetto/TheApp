@@ -86,6 +86,12 @@ namespace TheApp.Hubs
         {
             return Context.ConnectionId;
         }
+
+        public async Task EnableMessages()
+        {
+            await Clients.User(Context.ConnectionId).SendAsync("EnableMessages");
+        }
+
     }
 }
 

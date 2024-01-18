@@ -15,7 +15,7 @@ namespace TheApp.IO.DataCom
 
         public Message[] GetMessagesByUser(int userID)
         {
-            string queryString = $"SELECT * FROM messages WHERE senderID = {userID} OR receiverID = {userID}";
+            string queryString = $"SELECT * FROM messages WHERE receiverID = {userID}";
             SSQuery query = new SSQuery(); 
             DataTable dt = query.Run(queryString);
 
