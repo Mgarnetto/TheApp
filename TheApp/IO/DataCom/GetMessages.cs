@@ -44,13 +44,13 @@ namespace TheApp.IO.DataCom
                     int messageID = int.Parse(row["messageID"].ToString());
                     int senderID = int.Parse(row["senderID"].ToString());
                     int receiverID = int.Parse(row["receiverID"].ToString());
-                    int read = int.Parse(row["read"].ToString());
+                    int readMessage = int.Parse(row["readMessage"].ToString());
                     int sent = int.Parse(row["sent"].ToString());
                     int deleted = int.Parse(row["deleted"].ToString());
                     string messageText = row["message"].ToString();
                     DateTime dateTime = (DateTime)row["DateTime"];
 
-                    messageArray[it] = new Message(messageID, senderID, receiverID, read, sent, deleted, messageText, dateTime);
+                    messageArray[it] = new Message(messageID, senderID, receiverID, readMessage, sent, deleted, messageText, dateTime);
                     it++;
                 }
                 return messageArray;

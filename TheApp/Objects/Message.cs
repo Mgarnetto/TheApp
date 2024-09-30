@@ -5,7 +5,7 @@
         public int messageID { get; set; }
         public int senderID { get; set; }
         public int receiverID { get; set; }
-        public int read { get; set; }
+        public int readMessage { get; set; }
         public int sent { get; set; }
         public int deleted { get; set; }
         public string? messageText { get; set; }
@@ -16,12 +16,12 @@
             // Default constructor
         }
 
-        public Message(int messageID, int senderID, int receiverID, int read, int sent, int deleted, string? messageText, DateTime DateTime)
+        public Message(int messageID, int senderID, int receiverID, int readMessage, int sent, int deleted, string? messageText, DateTime DateTime)
         {
             this.messageID = messageID;
             this.senderID = senderID;
             this.receiverID = receiverID;
-            this.read = read;
+            this.readMessage = readMessage;
             this.sent = sent;
             this.deleted = deleted;
             this.messageText = messageText;

@@ -82,6 +82,7 @@
         font-family: Arial, sans-serif;
         margin: 20px;
     }*/
+
 .artist-section {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */

@@ -14,7 +14,7 @@ namespace TheApp.IO.DataCom
         public int InsertMessage(Message message)
         {
             string queryString = @"INSERT INTO messages (senderID, receiverID, [read], sent, deleted, message, DateTime)
-                                   VALUES (@senderID, @receiverID, @read, @sent, @deleted, @messageText, @DateTime);
+                                   VALUES (@senderID, @receiverID, @readMessage, @sent, @deleted, @messageText, @DateTime);
                                    SELECT SCOPE_IDENTITY();";
 
             using (SqlConnection connection = new SqlConnection(DBConn1.SSConnectionString))
@@ -25,7 +25,7 @@ namespace TheApp.IO.DataCom
                 {
                     command.Parameters.AddWithValue("@senderID", message.senderID);
                     command.Parameters.AddWithValue("@receiverID", message.receiverID);
-                    command.Parameters.AddWithValue("@read", message.read);
+                    command.Parameters.AddWithValue("@readMessage", message.readMessage);
                     command.Parameters.AddWithValue("@sent", message.sent);
                     command.Parameters.AddWithValue("@deleted", message.deleted);
                     command.Parameters.AddWithValue("@messageText", message.messageText);

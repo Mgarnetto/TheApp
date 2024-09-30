@@ -25,27 +25,27 @@
     }
 }
 
-<script>
-        $('.user-link').click(function (e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            loadUser(id);
-        });
-
-        function loadUser(id) {
-            $.ajax({
-                url: '/Home/UserPage',
-                type: 'POST',
-                data: { id: id },
-                success: function (response) {
-                    $('#SiteContent').html(response);
-
-                },
-                error: function () {
-                    alert('Error making AJAX call.');
-                }
+    <script>
+            $('.user-link').click(function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                loadUser(id);
             });
-        }
+
+            function loadUser(id) {
+                $.ajax({
+                    url: '/Home/UserPage',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        $('#SiteContent').html(response);
+
+                    },
+                    error: function () {
+                        alert('Error making AJAX call.');
+                    }
+                });
+            }
 
     </script>
 </div>
