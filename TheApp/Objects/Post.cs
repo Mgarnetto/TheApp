@@ -7,10 +7,10 @@
         public string postType { get; set; } // text image video audio
         public string postText { get; set; } // what text is on the post
         public string mediaFilePath { get; set; } // path to media of post type
-        public int mediaElementID { get; set; } // to be set by db. so hit db then pages
+        public int mediaElementID { get; set; } // to be set by db. so hit db then pages. used for comment tracking?
         public DateTime timeStamp { get; set; }
         public string Category { get; set; } // user, classifieds, etc.
-        public int PostingID { get; set; } //where it was posted.
+        public int PostingID { get; set; } //where it was posted. which user page etc.
 
         public Post()
         {

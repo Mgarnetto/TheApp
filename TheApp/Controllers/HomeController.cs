@@ -96,7 +96,7 @@ namespace TheApp.Controllers
             var relativePath = Path.Combine("wwwroot", "uploads");
             var fullSavePath = Path.Combine(contentRootPath, relativePath);
 
-            if (load == 0)
+            if (load == 0)// mod
             {
                 ViewData["FirstLoad"] = 0;
             }

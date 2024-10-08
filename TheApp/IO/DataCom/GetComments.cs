@@ -37,7 +37,7 @@
             string queryAll = "SELECT * FROM comments WHERE mediaElementID = " + mediaElementID +
                 " AND parentCommentID IS NULL ORDER BY timestamp ASC;";
 
-            SSQuery query = new SSQuery();
+            Query query = new Query();
             DataTable dt = query.Run(queryAll);
 
             Comment[] all = GetObj(dt); 
@@ -51,7 +51,7 @@
             string queryAll = "SELECT * FROM comments WHERE mediaElementID = " + mediaElementID + 
                 " AND parentCommentID = " + parentCommentID + " ORDER BY timestamp ASC;";
 
-            SSQuery query = new SSQuery();
+            Query query = new Query();
             DataTable dt = query.Run(queryAll);
 
             Comment[] all = GetObj(dt);

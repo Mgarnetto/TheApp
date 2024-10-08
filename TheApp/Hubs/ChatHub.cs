@@ -36,7 +36,7 @@ namespace TheApp.Hubs
             {
                 senderID = int.Parse(senderID),
                 receiverID = int.Parse(userID), /* Get the receiver's ID based on the provided userID */ 
-                read = 0,
+                readMessage = 0,
                 sent = 1,
                 deleted = 0,
                 messageText = messageText,

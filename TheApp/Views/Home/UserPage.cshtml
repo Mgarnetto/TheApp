@@ -5,8 +5,8 @@
 
     try
     {
-        TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
-        string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
+        //TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
+        //string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
         //<p>@path</p>
     }catch(Exception ex)
     {
@@ -22,8 +22,8 @@
 
             @try
             {
-                TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
-                string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
+                //TheApp.Objects.File[] pic = new TheApp.IO.DataCom.GetFiles().GetProfilePicture(u[0].userID);
+                //string path = System.IO.Path.Combine(pic[0].filePath, pic[0].fileName);
 
                 <img src="~/Pics/pic.jfif" alt="Artist Image">
 
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Posts -->
-    @await Component.InvokeAsync("Post", new {type = "User", ID = u[0].userID})
+   @await Component.InvokeAsync("Post", new {type = "User", ID = u[0].userID})
     
 
 <!-- End New page -->

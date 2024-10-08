@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Drawing;
 using TheApp.Objects;
 
 namespace TheApp.IO.DataCom
@@ -25,7 +26,7 @@ namespace TheApp.IO.DataCom
         public Post[] GetPostsByCategoryAndID(string category, int postingID)
         {
             string queryString = $"SELECT * FROM posts WHERE Category = '{category}' AND PostingID = {postingID} ORDER BY timestamp DESC;";
-            SSQuery query = new SSQuery(); 
+            Query query = new Query(); 
             DataTable dt = query.Run(queryString);
 
             Post[] posts = GetObj(dt);
@@ -34,9 +35,18 @@ namespace TheApp.IO.DataCom
 
         public Post[] GetObj(DataTable dt)
         {
-            int size = dt.Rows.Count;
+            Post[] postArray;
             int it = 0;
-            Post[] postArray = new Post[size];
+
+            if (dt.Rows.Count != null){
+                int size = dt.Rows.Count;
+                postArray = new Post[size];
+            }
+            else
+            {
+                postArray = new Post[0];
+            }
+            
 
             try
             {

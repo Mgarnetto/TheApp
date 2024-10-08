@@ -15,8 +15,9 @@ namespace TheApp.IO.DataCom
         // Retrieve all users
         public User[] GetAll()
         {
-            string queryAll = "SELECT * FROM [user]";
-            SSQuery query = new SSQuery();
+            string queryAll = "SELECT * FROM users";
+            //SSQuery query = new SSQuery();
+            Query query = new Query();
             DataTable dt = query.Run(queryAll);
 
             User[] all = GetObj(dt);
@@ -25,8 +26,11 @@ namespace TheApp.IO.DataCom
 
         public User[] GetUser(int userID)
         {
-            string queryAll = "SELECT * FROM [user] where userID = " + userID + ";";
-            SSQuery query = new SSQuery();
+            //string queryAll = "SELECT * FROM user;";
+            string queryAll = "SELECT * FROM users WHERE userID = " + userID + ";";
+            //string queryAll = "SELECT * FROM [user] where userID = " + userID + ";";
+            //SSQuery query = new SSQuery();
+            Query query = new Query();
             DataTable dt = query.Run(queryAll);
 
             User[] theOneUser = GetObj(dt);

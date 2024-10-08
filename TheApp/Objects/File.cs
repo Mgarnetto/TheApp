@@ -4,7 +4,7 @@
     {
         public int fileID { get; set; }
         public int userID { get; set; } // user who uploaded file
-        public int mediaElementID { get; set; } // where file is needed
+        public int mediaElementID { get; set; } // where file is needed.
         public string? fileName { get; set; } //varchar 100 
         public string? fileTitle { get; set; } //varchar 100 more formal for display
         public string? fileServer { get; set; } //varchar 20 server where file is hosted
